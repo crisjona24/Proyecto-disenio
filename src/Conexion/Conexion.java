@@ -5,10 +5,39 @@
  */
 package Conexion;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 /**
  *
  * @author PC
  */
 public class Conexion {
+    private static EntityManager en;
+    private static EntityManagerFactory enf;
+    private static Conexion conectar = new Conexion();
+
+    public Conexion() {
+    }
     
+    
+    public static Conexion getInstance(){
+        conectar();
+        return conectar;
+    }
+    
+    private static void conectar(){
+        if(enf == null){
+            enf = Persistence.createEntityManagerFactory("Administracion_De_TorneosPU");
+        }
+        if(en == null){
+             en = enf.createEntityManager();
+        }
+
+    }
+    
+    public EntityManager en(){
+        return en;
+    }
 }

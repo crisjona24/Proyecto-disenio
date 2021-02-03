@@ -1,0 +1,60 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Controlador.ControladorDao;
+
+import Conexion.Conexion;
+import Modelo.Torneo;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Cristobal Rios
+ */
+public class TorneoDao extends AdaptadorDao<Torneo>{
+    private Torneo torneo;
+    
+    public TorneoDao() {
+        super(new Conexion(), Torneo.class);
+    }
+
+    public Torneo getTorneo() {
+        if(torneo == null)
+            torneo = new Torneo();
+        return torneo;
+    }
+
+    public void setTorneo(Torneo torneo) {
+        this.torneo = torneo;
+    }
+    
+    
+    /*sobrecargamos los metodos*/
+    public boolean guardar(){
+        boolean guardo = false;
+        try {
+            if(this.torneo.getId() != null){
+                /*llamamos el metodo guardar y pasamos el objeto de tipo torneo*/
+                modificar(torneo);
+            }else{
+                /*llamamos el metodo guardar y pasamos el objeto de tipo torneo*/
+                guardar(torneo);
+            }
+            guardo = true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al guardar los datos ", null, JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return guardo;
+    }
+    
+
+    
+
+    
+
+    
+    
+}
