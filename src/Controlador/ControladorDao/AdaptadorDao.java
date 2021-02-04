@@ -20,19 +20,21 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
     /*creamos los objetos del tipo conexion para poder llamar a una nueva conexion*/
     /*creamos un objeto de tipo Clase para permitir invocar a una clase en especifico 
     en la vista*/
-    private Conexion conexion;
+    private EntityManager manejador;
     private Class clase;
 
-    public AdaptadorDao(Conexion conexion, Class clase) {
-        this.conexion = conexion;
+    public AdaptadorDao(EntityManager manejador, Class clase) {
+        this.manejador = manejador;
         this.clase = clase;
     }
+
+    
     /*llamamos a los metodos y a traves del entity manager nos permite realizar 
     el mapero dentro de la BD*/
     @Override
     public void guardar(T objetoCreado) throws Exception {
 
-        EntityManager en = this.conexion.en();
+        EntityManager en = this.manejador;
         try {
             en.getTransaction().begin();
             en.persist(objetoCreado);
@@ -49,7 +51,7 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
     @Override
     public List<T> listar() {
         List<T> lista = new ArrayList<>();
-        EntityManager en = this.conexion.en();
+        EntityManager en = this.manejador;
 
         try {
             Query query = en.createQuery("Select p" + clase.getSimpleName() + "p");
@@ -62,7 +64,7 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
 
     @Override
     public void modificar(T objetoCreado) throws Exception {
-        EntityManager en = this.conexion.en();
+        EntityManager en = this.manejador;
         try {
             en.getTransaction().begin();
             en.merge(objetoCreado);
@@ -78,7 +80,7 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
 
     @Override
     public T obtener(Long id) {
-        EntityManager en = this.conexion.en();
+        EntityManager en = this.manejador;
         T objeto = null;
         try {
             objeto = (T) en.find(clase, id);
@@ -88,8 +90,8 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
         return objeto;
     }
 
-    public Conexion getConexion() {
-        return conexion;
+    public EntityManager getManejador() {
+        return manejador;
     }
     
     

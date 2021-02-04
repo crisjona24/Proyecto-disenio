@@ -5,11 +5,14 @@
  */
 package Vista;
 
+import Controlador.ControladorServicios.ServicioEquipo;
+import Modelo.Equipo;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -58,9 +61,9 @@ public class Registro_Equipos extends javax.swing.JFrame {
 
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        textoNombre = new javax.swing.JTextField();
+        textoAlias = new javax.swing.JTextField();
+        textoEntre = new javax.swing.JTextField();
         entrenadorEquipo = new javax.swing.JLabel();
         AliasEquipo = new javax.swing.JLabel();
         nombreEquipo = new javax.swing.JLabel();
@@ -85,9 +88,9 @@ public class Registro_Equipos extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gifGol.gif"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 0, -1, 180));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 270, 30));
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 270, 30));
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, 270, 30));
+        getContentPane().add(textoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 270, 30));
+        getContentPane().add(textoAlias, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 270, 30));
+        getContentPane().add(textoEntre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, 270, 30));
 
         entrenadorEquipo.setText("Entrenedor");
         getContentPane().add(entrenadorEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, -1, -1));
@@ -102,6 +105,11 @@ public class Registro_Equipos extends javax.swing.JFrame {
         getContentPane().add(EtiquetaRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
 
         RegistrarE.setText("Registrar Equipo");
+        RegistrarE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistrarEActionPerformed(evt);
+            }
+        });
         getContentPane().add(RegistrarE, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 390, -1, -1));
 
         Direccion.setText("Local: Av Primero de mayo, Via la Costa");
@@ -145,6 +153,27 @@ public class Registro_Equipos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void RegistrarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarEActionPerformed
+        // TODO add your handling code here:
+        if((textoNombre.getText().length()>=1 )&& (textoAlias.getText().length()>=1 )&&(textoEntre.getText().length()>=1 )){
+            Equipo equipo = new Equipo();
+            equipo.setNombreEquipo(textoNombre.getText());
+            equipo.setAliasEquipo(textoAlias.getText());
+            equipo.setEntrnadorEquipo(textoEntre.getText());
+
+            ServicioEquipo servicio = new ServicioEquipo();
+            servicio.setEquipo(equipo);
+            servicio.guardar();
+            
+            JOptionPane.showMessageDialog(rootPane, "Se ha guardado con exito");
+            dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "Error datos faltantes", null, JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+    }//GEN-LAST:event_RegistrarEActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,10 +238,10 @@ public class Registro_Equipos extends javax.swing.JFrame {
     private javax.swing.JLabel entrenadorEquipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel nombreEquipo;
+    private javax.swing.JTextField textoAlias;
+    private javax.swing.JTextField textoEntre;
+    private javax.swing.JTextField textoNombre;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel titulo1;
     // End of variables declaration//GEN-END:variables

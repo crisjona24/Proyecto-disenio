@@ -13,8 +13,6 @@ import Conexion.Conexion;
  */
 public class Controlador {
     public static void main(String[] args) {
-        Conexion c = Conexion.getInstance();
-        System.out.println("222222222222222222222222");
-        Conexion.getInstance().en();
+       
     }
 }

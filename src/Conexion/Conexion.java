@@ -14,7 +14,7 @@ import javax.persistence.Persistence;
  * @author PC
  */
 public class Conexion {
-    private static EntityManager en;
+    /*private static EntityManager en;
     private static EntityManagerFactory enf;
     private static Conexion conectar = new Conexion();
 
@@ -39,5 +39,17 @@ public class Conexion {
     
     public EntityManager en(){
         return en;
+    }*/
+    
+    public static EntityManagerFactory sesion(){
+        return Persistence.createEntityManagerFactory("Administracion_De_TorneosPU");
+    }
+    
+    public static EntityManager em(){
+        return Conexion.sesion().createEntityManager();
+    }
+    
+    public static void main(String[] args) {
+        Conexion.em();
     }
 }

@@ -6,30 +6,30 @@
 package Controlador.ControladorDao;
 
 import Conexion.Conexion;
-import Modelo.Torneo;
+import Modelo.Jugador;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Cristobal Rios
  */
-public class TorneoDao extends AdaptadorDao<Torneo> {
+public class JugadorDao extends AdaptadorDao<Jugador> {
 
-    private Torneo torneo;
+    private Jugador jugador;
 
-    public TorneoDao() {
-        super(Conexion.em(), Torneo.class);
+    public JugadorDao() {
+        super(Conexion.em(), Jugador.class);
     }
 
-    public Torneo getTorneo() {
-        if (torneo == null) {
-            torneo = new Torneo();
+    public Jugador getJugador() {
+        if (jugador == null) {
+            jugador = new Jugador();
         }
-        return torneo;
+        return jugador;
     }
 
-    public void setTorneo(Torneo torneo) {
-        this.torneo = torneo;
+    public void setJugador(Jugador jugador) {
+        this.jugador = jugador;
     }
 
     /*sobrecargamos los metodos*/
@@ -37,17 +37,17 @@ public class TorneoDao extends AdaptadorDao<Torneo> {
         boolean guardo = false;
         try {
             this.getManejador().getTransaction().begin();
-            if (this.torneo.getId_tor() != null) {
+            if (this.jugador.getId_juga() != null) {
                 /*llamamos el metodo guardar y pasamos el objeto de tipo torneo*/
-                guardar(torneo);
+                guardar(jugador);
             } else {
                 /*llamamos el metodo guardar y pasamos el objeto de tipo torneo*/
-                modificar(torneo);
+                modificar(jugador);
 
             }
             guardo = true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar los datos de torneo", null, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al guardar los datos de equipo", null, JOptionPane.ERROR_MESSAGE);
         }
 
         return guardo;
