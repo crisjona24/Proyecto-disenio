@@ -42,6 +42,19 @@ public class Torneo implements Serializable {
     @OneToMany(mappedBy = "torneo", cascade = CascadeType.ALL)
     private List<Equipo> listaEquipos = new ArrayList<>();
 
+    /*Creamos una lista de los objetos que tiene dependencia de la clase*/
+    /*se agrega la relacion*/
+    @OneToMany(mappedBy = "torneo", cascade = CascadeType.ALL)
+    private List<Planilla> listaPlanillas = new ArrayList<>();
+
+    public List<Planilla> getListaPlanillas() {
+        return listaPlanillas;
+    }
+
+    public void setListaPlanillas(List<Planilla> listaPlanillas) {
+        this.listaPlanillas = listaPlanillas;
+    }
+      
     public List<Equipo> getListaEquipos() {
         return listaEquipos;
     }

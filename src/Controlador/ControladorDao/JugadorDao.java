@@ -38,10 +38,10 @@ public class JugadorDao extends AdaptadorDao<Jugador> {
         try {
             this.getManejador().getTransaction().begin();
             if (this.jugador.getId_juga() != null) {
-                /*llamamos el metodo guardar y pasamos el objeto de tipo torneo*/
-                guardar(jugador);
+                /*llamamos el metodo guardarA y pasamos el objeto de tipo torneo*/
+                guardarA(jugador);
             } else {
-                /*llamamos el metodo guardar y pasamos el objeto de tipo torneo*/
+                /*llamamos el metodo guardarA y pasamos el objeto de tipo torneo*/
                 modificar(jugador);
 
             }

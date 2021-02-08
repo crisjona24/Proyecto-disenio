@@ -6,6 +6,7 @@
 package Vista;
 
 import Controlador.ControladorServicios.ServicioEquipo;
+import ControladorJPA.ControladorEquipo;
 import Modelo.Equipo;
 import java.awt.Color;
 import java.awt.Font;
@@ -23,14 +24,13 @@ public class Registro_Equipos extends javax.swing.JFrame {
     /**
      * Creates new form acceso
      */
-    
     public Registro_Equipos() {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Administracion de torneos de una cancha sintetica");
         /*administramos el color de la letra y el tipo de fuente*/
-        Font fuente = new Font("Agency FB", Font.PLAIN,40);
-        Font fuente1 = new Font("Agency FB", Font.PLAIN,20);
+        Font fuente = new Font("Agency FB", Font.PLAIN, 40);
+        Font fuente1 = new Font("Agency FB", Font.PLAIN, 20);
         titulo.setForeground(Color.black);
         titulo.setFont(fuente);
         titulo1.setForeground(Color.black);
@@ -44,10 +44,10 @@ public class Registro_Equipos extends javax.swing.JFrame {
         entrenadorEquipo.setForeground(Color.black);
         entrenadorEquipo.setFont(fuente1);
         /*cambiamos el color de los botones*/
-        
+
         Atras.setBackground(Color.lightGray);
         RegistrarE.setBackground(Color.lightGray);
-        
+
     }
 
     /**
@@ -110,12 +110,17 @@ public class Registro_Equipos extends javax.swing.JFrame {
                 RegistrarEActionPerformed(evt);
             }
         });
-        getContentPane().add(RegistrarE, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 390, -1, -1));
+        getContentPane().add(RegistrarE, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 370, -1, -1));
 
         Direccion.setText("Local: Av Primero de mayo, Via la Costa");
         getContentPane().add(Direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
 
         Atras.setText("Atras");
+        Atras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AtrasActionPerformed(evt);
+            }
+        });
         getContentPane().add(Atras, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, -1, -1));
 
         titulo1.setText("DON DIEGO ");
@@ -156,24 +161,33 @@ public class Registro_Equipos extends javax.swing.JFrame {
 
     private void RegistrarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarEActionPerformed
         // TODO add your handling code here:
-        if((textoNombre.getText().length()>=1 )&& (textoAlias.getText().length()>=1 )&&(textoEntre.getText().length()>=1 )){
+        if ((textoNombre.getText().length() >= 1) && (textoAlias.getText().length() >= 1) && (textoEntre.getText().length() >= 1)) {
             Equipo equipo = new Equipo();
             equipo.setNombreEquipo(textoNombre.getText());
             equipo.setAliasEquipo(textoAlias.getText());
             equipo.setEntrnadorEquipo(textoEntre.getText());
 
-            ServicioEquipo servicio = new ServicioEquipo();
-            servicio.setEquipo(equipo);
-            servicio.guardar();
-            
+            ControladorEquipo controlE = new ControladorEquipo();
+            controlE.crearEquipo(equipo);
             JOptionPane.showMessageDialog(rootPane, "Se ha guardado con exito");
+            /*llamamos a la ventana a la que se redirige*/
+            Equipos VentanaEquipos = new Equipos();
+            VentanaEquipos.setVisible(true);
             dispose();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Error datos faltantes", null, JOptionPane.ERROR_MESSAGE);
         }
-        
-        
+
+
     }//GEN-LAST:event_RegistrarEActionPerformed
+
+    private void AtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtrasActionPerformed
+        // TODO add your handling code here:
+        /*llamamos a la ventana a la que se redirige*/
+        Equipos VentanaEquipos = new Equipos();
+        VentanaEquipos.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_AtrasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,8 +230,6 @@ public class Registro_Equipos extends javax.swing.JFrame {
             }
         });
     }
-    
-    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

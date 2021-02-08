@@ -14,8 +14,10 @@ import java.util.List;
 public interface InterfazDao <T> {
     /*creacion de los metodos que nos permiten manejar las funciones 
     para poder manejar los datos*/
-    public void guardar(T objetoCreado)throws Exception;
+    public void guardarA(T objetoCreado)throws Exception;
     public void modificar(T objetoCreado)throws Exception;
     public T obtener (Long id);
+    public T obtenernombre (String nombre);
     public List<T> listar();
+    public void borrar(Long id)throws Exception;
 }

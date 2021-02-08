@@ -92,6 +92,14 @@ public class Equipo implements Serializable {
         this.id_equi = id_equi;
     }
 
+    public List<Jugador> getListaJugadores() {
+        return listaJugadores;
+    }
+
+    public void setListaJugadores(List<Jugador> listaJugadores) {
+        this.listaJugadores = listaJugadores;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;

@@ -21,7 +21,7 @@ public class EquipoDao extends AdaptadorDao<Equipo> {
         super(Conexion.em(), Equipo.class);
     }
 
-    public Equipo getEquipo() {
+   public Equipo getEquipo() {
         if (equipo == null) {
             equipo = new Equipo();
         }
@@ -33,24 +33,64 @@ public class EquipoDao extends AdaptadorDao<Equipo> {
     }
 
     /*sobrecargamos los metodos*/
-    public boolean guardar() {
+    public boolean guardarED() {
         boolean guardo = false;
         try {
-            this.getManejador().getTransaction().begin();
-            if (this.equipo.getId_equi() != null) {
-                /*llamamos el metodo guardar y pasamos el objeto de tipo torneo*/
-                guardar(equipo);
-            } else {
-                /*llamamos el metodo guardar y pasamos el objeto de tipo torneo*/
-                modificar(equipo);
-
-            }
+            guardarA(equipo);
             guardo = true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar los datos de equipo", null, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al guardar los datos de equipo"+e, null, JOptionPane.ERROR_MESSAGE);
         }
 
         return guardo;
+    }
+    /*sobrecargamos los metodos*/
+    public boolean modificarED() {
+        boolean guardo = false;
+        try {
+            modificar(equipo);
+            guardo = true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al modificar los datos de equipo"+e, null, JOptionPane.ERROR_MESSAGE);
+        }
+
+        return guardo;
+    }
+    /*sobrecargamos los metodos*/
+    public boolean borrarED(Long id) {
+        boolean guardo = false;
+        try {
+            borrar(id);
+            guardo = true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al modificar los datos de equipo"+e, null, JOptionPane.ERROR_MESSAGE);
+        }
+
+        return guardo;
+    }
+    
+    /*sobrecargamos los metodos*/
+    public Equipo obtenerED(Long id) {
+        Equipo equipo = null;
+        try {
+            equipo = obtener(id);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener los datos del equipo", null, JOptionPane.ERROR_MESSAGE);
+        }
+
+        return equipo;
+    }
+    
+    /*sobrecargamos los metodos*/
+    public Equipo obtenerNo(String nombre) {
+        Equipo equipo = null;
+        try {
+            equipo = obtenernombre(nombre);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener los datos del equipo", null, JOptionPane.ERROR_MESSAGE);
+        }
+
+        return equipo;
     }
 
 }

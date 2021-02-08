@@ -32,7 +32,7 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
     /*llamamos a los metodos y a traves del entity manager nos permite realizar 
     el mapero dentro de la BD*/
     @Override
-    public void guardar(T objetoCreado) throws Exception {
+    public void guardarA(T objetoCreado) throws Exception {
 
         EntityManager en = this.manejador;
         try {
@@ -85,13 +85,40 @@ public class AdaptadorDao<T> implements InterfazDao<T> {
         try {
             objeto = (T) en.find(clase, id);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener los datos ", null, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al obtener los datos "+e, null, JOptionPane.ERROR_MESSAGE);
         }
         return objeto;
     }
 
     public EntityManager getManejador() {
         return manejador;
+    }
+
+    @Override
+    public T obtenernombre(String nombre) {
+        EntityManager en = this.manejador;
+        T objeto = null;
+        try {
+            objeto = (T) en.find(clase, nombre);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener los datos "+e, null, JOptionPane.ERROR_MESSAGE);
+        }
+        return objeto;
+    }
+
+    @Override
+    public void borrar(Long id) throws Exception {
+        EntityManager en = this.manejador;
+        try {
+            
+            en.detach(id);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al borrar los datos ", null, JOptionPane.ERROR_MESSAGE);
+            
+        } finally {
+            en.close();
+        }
     }
     
     

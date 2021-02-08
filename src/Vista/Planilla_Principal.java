@@ -36,8 +36,7 @@ public class Planilla_Principal extends javax.swing.JFrame {
         fecha.setFont(fuente1);
         lugar.setForeground(Color.black);
         lugar.setFont(fuente1);
-        hora.setForeground(Color.black);
-        hora.setFont(fuente1);
+     
         etiRegistro.setForeground(Color.black);
         etiRegistro.setFont(fuente1);
         etiRegistro1.setForeground(Color.black);
@@ -70,7 +69,6 @@ public class Planilla_Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSeparator1 = new javax.swing.JSeparator();
         nombreEquipo4 = new javax.swing.JLabel();
         nombreEquipo3 = new javax.swing.JLabel();
         arbitro = new javax.swing.JLabel();
@@ -83,8 +81,6 @@ public class Planilla_Principal extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        hora = new javax.swing.JLabel();
         lugar = new javax.swing.JLabel();
         fecha = new javax.swing.JLabel();
         EtiquetaRegistro = new javax.swing.JLabel();
@@ -115,7 +111,7 @@ public class Planilla_Principal extends javax.swing.JFrame {
         getContentPane().add(nombreEquipo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, -1, -1));
 
         arbitro.setText("Arbitro :");
-        getContentPane().add(arbitro, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 470, -1, -1));
+        getContentPane().add(arbitro, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 440, -1, -1));
 
         nombreEquipo2.setText("FC Lobos ");
         getContentPane().add(nombreEquipo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, -1, -1));
@@ -124,13 +120,13 @@ public class Planilla_Principal extends javax.swing.JFrame {
         getContentPane().add(nombreEquipo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
 
         verResultados.setText("Ver resultados");
-        getContentPane().add(verResultados, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 490, 130, -1));
+        getContentPane().add(verResultados, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 500, 130, -1));
 
         etiRegistro1.setText("Click Aqui!");
-        getContentPane().add(etiRegistro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 550, -1, -1));
+        getContentPane().add(etiRegistro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 580, -1, -1));
 
         etiRegistro.setText("Para registrar resultados");
-        getContentPane().add(etiRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 530, -1, -1));
+        getContentPane().add(etiRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 560, -1, -1));
 
         registroAmonestaciones.setText("Registro resultados ");
         registroAmonestaciones.addActionListener(new java.awt.event.ActionListener() {
@@ -138,14 +134,10 @@ public class Planilla_Principal extends javax.swing.JFrame {
                 registroAmonestacionesActionPerformed(evt);
             }
         });
-        getContentPane().add(registroAmonestaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 550, 140, -1));
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 470, 160, 30));
+        getContentPane().add(registroAmonestaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 580, 140, -1));
+        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 440, 160, 30));
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 160, 30));
         getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, 160, 30));
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 430, 160, 30));
-
-        hora.setText("Hora :");
-        getContentPane().add(hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, -1, -1));
 
         lugar.setText("Lugar :");
         getContentPane().add(lugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 390, -1, -1));
@@ -395,12 +387,9 @@ public class Planilla_Principal extends javax.swing.JFrame {
     private javax.swing.JLabel etiRegistro;
     private javax.swing.JLabel etiRegistro1;
     private javax.swing.JLabel fecha;
-    private javax.swing.JLabel hora;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel lugar;
     private javax.swing.JLabel nombreEquipo1;

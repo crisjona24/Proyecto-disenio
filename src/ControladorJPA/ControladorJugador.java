@@ -40,9 +40,24 @@ public class ControladorJugador {
     }
     
      /*metodo para listar un nuevo Jugador*/
-    public List<Jugador> listarTorneo(Jugador juga) {
-
-        List<Jugador> listajuga = jugador.findJugadorEntities();
+    public List<Jugador> listarJugador(Jugador juga) {
+        List<Jugador> listajuga = null;
+        try {
+            listajuga = jugador.findJugadorEntities();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al obteber jugador " + ex);
+        }  
         return listajuga;
+    }
+    
+    
+    public Jugador obtenerJugador(Long id) {
+        Jugador juga = null;
+        try {
+            juga = jugador.findJugador(id);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al obteber jugador " + ex);
+        }
+        return juga;
     }
 }
