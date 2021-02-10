@@ -6,7 +6,11 @@
 package Vista;
 
 import ControladorJPA.ControladorEquipo;
+import ControladorJPA.ControladorPlanilla;
+import ControladorJPA.ControladorTorneo;
 import Modelo.Equipo;
+import Modelo.Planilla;
+import Modelo.Torneo;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.List;
@@ -24,7 +28,10 @@ public class Registro_Planilla extends javax.swing.JFrame {
      */
     DefaultTableModel modelo;
     DefaultTableModel modelo2;
+    DefaultTableModel modelo3;
     ControladorEquipo control = new ControladorEquipo();
+    ControladorTorneo control2 = new ControladorTorneo();
+    ControladorPlanilla controlP = new ControladorPlanilla();
 
     public Registro_Planilla() {
         initComponents();
@@ -52,7 +59,7 @@ public class Registro_Planilla extends javax.swing.JFrame {
         lugar.setFont(fuente1);
         fecha.setForeground(Color.black);
         fecha.setFont(fuente1);
-   
+
 
         /*cambiamos el color de los botones*/
         Atras.setBackground(Color.lightGray);
@@ -60,6 +67,8 @@ public class Registro_Planilla extends javax.swing.JFrame {
 
         textoEquipo1.setText(" ");
         textoEquipo2.setText(" ");
+        textoArbitro.setText(" ");
+        textonTorneo.setText(" ");
 
     }
 
@@ -85,12 +94,24 @@ public class Registro_Planilla extends javax.swing.JFrame {
 
     public void tablaModeloAr() {
         //damos los parametros que se veran reflejados en la tabla
-        tablaArbitros.getColumnModel().getColumn(0).setPreferredWidth(40);
-        tablaArbitros.getColumnModel().getColumn(0).setPreferredWidth(40);
-        tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(80);
+        if (textoArbitro.getText().equals(" ")) {
+            tablaArbitros.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tablaArbitros.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tablaArbitros.getColumnModel().getColumn(0).setPreferredWidth(80);
 
-        modelo2 = (DefaultTableModel) tablaEquipos.getModel();
-        modelo2.setNumRows(0);
+            modelo2 = (DefaultTableModel) tablaArbitros.getModel();
+            modelo2.setNumRows(0);
+            //cargatablaAr();
+        } else if (textonTorneo.getText().equals(" ")) {
+            tablaArbitros.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tablaArbitros.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tablaArbitros.getColumnModel().getColumn(0).setPreferredWidth(80);
+
+            modelo3 = (DefaultTableModel) tablaArbitros.getModel();
+            modelo3.setNumRows(0);
+
+            cargatablaTorneo();
+        }
 
     }
 
@@ -104,6 +125,19 @@ public class Registro_Planilla extends javax.swing.JFrame {
             String a = String.valueOf(actlist.getEntrnadorEquipo());
             String ali = String.valueOf(actlist.getAliasEquipo());
             modelo.addRow(new Object[]{actlist.getId_equi(), nombre, a, ali,});
+        }
+    }
+
+    public void cargatablaTorneo() {
+        //añadimos a traves de una lista los datos a la tabla
+        List<Torneo> lista = control2.listarTorneo();
+
+        for (Torneo actlist : lista) {
+
+            String nombre = String.valueOf(actlist.getNombreTorneo());
+            String a = String.valueOf(actlist.getModalidad());
+
+            modelo.addRow(new Object[]{actlist.getId_tor(), nombre, a,});
         }
     }
 
@@ -152,6 +186,8 @@ public class Registro_Planilla extends javax.swing.JFrame {
     }
 
     public void cargarArbitro() {
+
+        //AQUI DEBEMOS CAMBIAR EL OBJETO
         if (this.tablaArbitros.isEnabled()) {
             int selectedRow = this.tablaArbitros.getSelectedRow();
             Long id = Long.parseLong(modelo2.getValueAt(selectedRow, 0).toString());
@@ -159,6 +195,20 @@ public class Registro_Planilla extends javax.swing.JFrame {
             idArbitro.setText(String.valueOf(equipo.getId_equi()));
 
             textoArbitro.setText(equipo.getNombreEquipo());
+
+        }
+    }
+
+    public void cargarTorneo() {
+
+        //AQUI DEBEMOS CAMBIAR EL OBJETO
+        if (this.tablaArbitros.isEnabled()) {
+            int selectedRow = this.tablaArbitros.getSelectedRow();
+            Long id = Long.parseLong(modelo3.getValueAt(selectedRow, 0).toString());
+            Torneo torne = control2.obtenerTorneo(id);
+            idTorneo.setText(String.valueOf(torne.getId_tor()));
+
+            textonTorneo.setText(torne.getNombreTorneo());
 
         }
     }
@@ -212,6 +262,7 @@ public class Registro_Planilla extends javax.swing.JFrame {
         F4 = new javax.swing.JLabel();
         ID = new javax.swing.JLabel();
         idArbitro = new javax.swing.JLabel();
+        idTorneo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -249,6 +300,12 @@ public class Registro_Planilla extends javax.swing.JFrame {
         torneo.setText("Torneo :");
         getContentPane().add(torneo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, -1, -1));
         getContentPane().add(textoLugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 380, 210, 30));
+
+        textonTorneo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textonTorneoMouseClicked(evt);
+            }
+        });
         getContentPane().add(textonTorneo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 330, 210, 30));
 
         textoEquipo1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -290,13 +347,23 @@ public class Registro_Planilla extends javax.swing.JFrame {
         getContentPane().add(EtiquetaPlanilla, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 140, -1, -1));
 
         RegistrarP.setText("Guardar");
+        RegistrarP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RegistrarPMouseClicked(evt);
+            }
+        });
+        RegistrarP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistrarPActionPerformed(evt);
+            }
+        });
         getContentPane().add(RegistrarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 460, -1, -1));
 
         Direccion.setText("Local: Av Primero de mayo, Via la Costa");
         getContentPane().add(Direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, -1, -1));
 
         lbImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/balon.gif"))); // NOI18N
-        getContentPane().add(lbImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 230, 260));
+        getContentPane().add(lbImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 230, 260));
 
         tablaEquipos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -324,9 +391,14 @@ public class Registro_Planilla extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablaEquipos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 220, 240));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 220, 240));
 
         Atras.setText("Atras");
+        Atras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AtrasActionPerformed(evt);
+            }
+        });
         getContentPane().add(Atras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, -1, -1));
 
         tablaArbitros.setModel(new javax.swing.table.DefaultTableModel(
@@ -337,7 +409,7 @@ public class Registro_Planilla extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "IDAr", "Nombre", "Apellido"
+                "ID", "Nombre", "Apellido"
             }
         ) {
             Class[] types = new Class [] {
@@ -414,6 +486,7 @@ public class Registro_Planilla extends javax.swing.JFrame {
 
         idArbitro.setText("jLabel1");
         getContentPane().add(idArbitro, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, -1));
+        getContentPane().add(idTorneo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -473,8 +546,66 @@ public class Registro_Planilla extends javax.swing.JFrame {
     }//GEN-LAST:event_textoArbitroMouseClicked
 
     private void tablaArbitrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaArbitrosMouseClicked
-        // cargarArbitro();
+
+        if (textoArbitro.getText().equals(" ")) {
+            // cargarArbitro();
+            tablaArbitros.setVisible(false);
+            lbImagen.setVisible(true);
+        } else if (textonTorneo.getText().equals(" ")) {
+            cargarTorneo();
+            tablaArbitros.setVisible(false);
+            lbImagen.setVisible(true);
+        }
     }//GEN-LAST:event_tablaArbitrosMouseClicked
+
+    private void RegistrarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RegistrarPActionPerformed
+
+    private void textonTorneoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textonTorneoMouseClicked
+        if (textonTorneo.getText().equals(" ")) {
+            lbImagen.setVisible(false);
+            tablaModeloAr();
+            cargatablaTorneo();
+            tablaEquipos.setEnabled(false);
+            tablaEquipos.setVisible(false);
+            tablaArbitros.setEnabled(true);
+            tablaArbitros.setVisible(true);
+        }
+    }//GEN-LAST:event_textonTorneoMouseClicked
+
+    private void RegistrarPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrarPMouseClicked
+        Planilla planila = null;
+        if ((textoEquipo1.getText().length() >= 1) && (textoEquipo2.getText().length() >= 1)
+                && (textoArbitro.getText().length() >= 1) && (textonTorneo.getText().length() >= 1) && (textoLugar.getText().length() >= 1)) {
+            planila = new Planilla();
+            /*obtenemos la id del torneo al que pertenece*/
+            Long idT = Long.parseLong(idTorneo.getText());
+            Torneo tor = new Torneo();
+            tor = control2.obtenerTorneo(idT);
+            
+            planila.setNombreEquipo(textoEquipo1.getText());
+            planila.setNombreEquipo1(textoEquipo2.getText());
+            planila.setNombreArbitro(textoArbitro.getText());
+            planila.setLugar(textoLugar.getText());
+            planila.setTorneo(tor);
+
+            if (controlP.crearPlanilla(planila)) {
+                JOptionPane.showMessageDialog(rootPane, "Se guardo con exito nuestra planilla");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Lo sentimos no se puedo guardar");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Rellene los campos para poder registrar", null, JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_RegistrarPMouseClicked
+
+    private void AtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtrasActionPerformed
+       //nos redirigiremos a donde pertence
+       Planillas vPlani = new Planillas();
+       dispose();
+       vPlani.setVisible(true);
+    }//GEN-LAST:event_AtrasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -567,6 +698,7 @@ public class Registro_Planilla extends javax.swing.JFrame {
     private javax.swing.JComboBox diaC;
     private javax.swing.JLabel fecha;
     private javax.swing.JLabel idArbitro;
+    private javax.swing.JLabel idTorneo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;

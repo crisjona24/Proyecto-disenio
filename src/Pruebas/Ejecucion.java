@@ -22,7 +22,7 @@ import java.util.List;
 public class Ejecucion {
     public static void main(String[] args) {
     
-        ControladorPlanilla c = new ControladorPlanilla();
+        /*ControladorPlanilla c = new ControladorPlanilla();
         
         Planilla plani = new Planilla();
         plani.setNombreEquipo("aaa");
@@ -32,7 +32,7 @@ public class Ejecucion {
         plani.setNombreJuga("AAAAAA");
         plani.setNombreJuga1("BBB");
         
-        c.crearPlanilla(plani);
+        c.crearPlanilla(plani);*/
         
         
     }

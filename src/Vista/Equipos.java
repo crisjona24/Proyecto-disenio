@@ -228,8 +228,6 @@ public class Equipos extends javax.swing.JFrame {
         F7 = new javax.swing.JLabel();
         F10 = new javax.swing.JLabel();
         F11 = new javax.swing.JLabel();
-        F12 = new javax.swing.JLabel();
-        F13 = new javax.swing.JLabel();
         F14 = new javax.swing.JLabel();
         F15 = new javax.swing.JLabel();
         ID = new javax.swing.JTextField();
@@ -342,7 +340,7 @@ public class Equipos extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, 80, 20));
+        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 80, 20));
 
         tablaEquipos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -383,7 +381,7 @@ public class Equipos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablaEquipos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 350, 240));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 440, 350, 140));
 
         Ver.setText("Ver");
         Ver.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -396,7 +394,7 @@ public class Equipos extends javax.swing.JFrame {
                 VerActionPerformed(evt);
             }
         });
-        getContentPane().add(Ver, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 480, 90, -1));
+        getContentPane().add(Ver, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 490, 90, -1));
 
         EtiquetaRegistro.setText("Registro de equipos ");
         getContentPane().add(EtiquetaRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
@@ -414,13 +412,13 @@ public class Equipos extends javax.swing.JFrame {
                 EditarActionPerformed(evt);
             }
         });
-        getContentPane().add(Editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 410, 100, 30));
+        getContentPane().add(Editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 370, 100, 30));
 
         Direccion.setText("Local: Av Primero de mayo, Via la Costa");
-        getContentPane().add(Direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, -1, -1));
+        getContentPane().add(Direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, -1, -1));
 
         Atras.setText("Atras");
-        getContentPane().add(Atras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, -1, -1));
+        getContentPane().add(Atras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 570, -1, -1));
 
         buscarEquipo.setText("Buscar");
         buscarEquipo.addActionListener(new java.awt.event.ActionListener() {
@@ -437,16 +435,16 @@ public class Equipos extends javax.swing.JFrame {
         getContentPane().add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 350, 50));
 
         nombreEquipo.setText("Nombre:");
-        getContentPane().add(nombreEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, -1, -1));
+        getContentPane().add(nombreEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, -1, -1));
 
         AliasEquipo.setText("Alias:");
-        getContentPane().add(AliasEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 320, -1, -1));
+        getContentPane().add(AliasEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, -1, -1));
 
         entrenadorEquipo.setText("Entrenedor");
-        getContentPane().add(entrenadorEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 360, -1, -1));
+        getContentPane().add(entrenadorEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/balon1.gif"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 20, 210, 170));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 210, 170));
 
         Nuevo.setText("Nuevo registro");
         Nuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -454,7 +452,7 @@ public class Equipos extends javax.swing.JFrame {
                 NuevoActionPerformed(evt);
             }
         });
-        getContentPane().add(Nuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 470, 140, 40));
+        getContentPane().add(Nuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, 110, 30));
 
         RegistrarE.setText("Registrar");
         RegistrarE.addActionListener(new java.awt.event.ActionListener() {
@@ -462,16 +460,16 @@ public class Equipos extends javax.swing.JFrame {
                 RegistrarEActionPerformed(evt);
             }
         });
-        getContentPane().add(RegistrarE, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 320, 100, -1));
+        getContentPane().add(RegistrarE, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, 100, -1));
 
         labelEdita.setText("¿Quiere editar?");
-        getContentPane().add(labelEdita, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 420, -1, -1));
-        getContentPane().add(textoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 270, 220, 30));
-        getContentPane().add(textoAlias, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 310, 220, 30));
-        getContentPane().add(textoEntre, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 350, 220, 30));
+        getContentPane().add(labelEdita, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 380, -1, -1));
+        getContentPane().add(textoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 240, 30));
+        getContentPane().add(textoAlias, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 240, 30));
+        getContentPane().add(textoEntre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, 240, 30));
 
         F5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        getContentPane().add(F5, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 330, 170, 210));
+        getContentPane().add(F5, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 330, 180, 310));
 
         F1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
         getContentPane().add(F1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 330));
@@ -480,19 +478,19 @@ public class Equipos extends javax.swing.JFrame {
         getContentPane().add(F2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 120, 330));
 
         F3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        getContentPane().add(F3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, 120, 210));
+        getContentPane().add(F3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, 120, 310));
 
         F9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        getContentPane().add(F9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 120, 210));
+        getContentPane().add(F9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 120, 310));
 
         F8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        getContentPane().add(F8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 120, 210));
+        getContentPane().add(F8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 120, 310));
 
         F4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        getContentPane().add(F4, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 230, 330));
+        getContentPane().add(F4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 240, 330));
 
         F7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        getContentPane().add(F7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, 120, 210));
+        getContentPane().add(F7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, 120, 310));
 
         F10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
         getContentPane().add(F10, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 120, 330));
@@ -500,14 +498,8 @@ public class Equipos extends javax.swing.JFrame {
         F11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
         getContentPane().add(F11, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 70, 330));
 
-        F12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        getContentPane().add(F12, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 120, 330));
-
-        F13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        getContentPane().add(F13, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 330, 120, 210));
-
         F14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        getContentPane().add(F14, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 330, 120, 210));
+        getContentPane().add(F14, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 330, 120, 310));
 
         F15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
         getContentPane().add(F15, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 120, 330));
@@ -614,7 +606,6 @@ public class Equipos extends javax.swing.JFrame {
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
         // llamamos al metodo editar Registro
-
         editarRegistro();
     }//GEN-LAST:event_EditarActionPerformed
 
@@ -734,8 +725,6 @@ public class Equipos extends javax.swing.JFrame {
     private javax.swing.JLabel F1;
     private javax.swing.JLabel F10;
     private javax.swing.JLabel F11;
-    private javax.swing.JLabel F12;
-    private javax.swing.JLabel F13;
     private javax.swing.JLabel F14;
     private javax.swing.JLabel F15;
     private javax.swing.JLabel F17;

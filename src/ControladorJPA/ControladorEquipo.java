@@ -84,7 +84,8 @@ public class ControladorEquipo {
         }
         return equi;
     }
-
+   
+    
     public Equipo obtenerEquipoEspecifico(String nombre) {
         List<Equipo> equi = null;
         Equipo e = new Equipo();

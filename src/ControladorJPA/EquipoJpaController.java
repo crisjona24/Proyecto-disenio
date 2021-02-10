@@ -158,6 +158,8 @@ public class EquipoJpaController implements Serializable {
         }
     }
     
+   
+    
     public int getEquipoCount() {
         EntityManager em = getEntityManager();
         try {

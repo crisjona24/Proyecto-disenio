@@ -40,7 +40,7 @@ public class ControladorTorneo {
     }
 
     /*metodo para listar un nuevo Torneo*/
-    public List<Torneo> listarTorneo(Torneo torne) {
+    public List<Torneo> listarTorneo() {
         List<Torneo> listaTorneo = null;
         try {
             listaTorneo = torneo.findTorneoEntities();
