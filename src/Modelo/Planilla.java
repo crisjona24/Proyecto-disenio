@@ -55,13 +55,10 @@ public class Planilla implements Serializable {
     @Column(length = 50)
     private String nombreJuga;
     @Column(length = 50)
-    private String nombreJuga1;
-    @Column(length = 50)
-    private String tipoFalta;
-    @Column(length = 50)
     private String resultado;
     @Column(length = 50)
     private String resultado1;
+    
     @Temporal(TemporalType.DATE)
     private Date fecha;
     
@@ -117,22 +114,6 @@ public class Planilla implements Serializable {
 
     public void setNombreJuga(String nombreJuga) {
         this.nombreJuga = nombreJuga;
-    }
-
-    public String getNombreJuga1() {
-        return nombreJuga1;
-    }
-
-    public void setNombreJuga1(String nombreJuga1) {
-        this.nombreJuga1 = nombreJuga1;
-    }
-
-    public String getTipoFalta() {
-        return tipoFalta;
-    }
-
-    public void setTipoFalta(String tipoFalta) {
-        this.tipoFalta = tipoFalta;
     }
 
     public String getResultado() {

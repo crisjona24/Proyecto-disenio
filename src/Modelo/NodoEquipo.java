@@ -3,19 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ControladorJPA;
+package Modelo;
 
-import Modelo.Equipo;
 
 /**
- *
- * @author PC
+ * Clase Nodo con el dato que va a recibir y el nodo de referencia
+ * @author Cristobal Rios
  */
-public class Nodo {
+public class NodoEquipo {
     Equipo equipo;
-    Nodo siquiente;
+    NodoEquipo siquiente;
 
-    public Nodo() {
+    public NodoEquipo() {
         this.equipo = equipo;
         this.siquiente = siquiente;
     }
@@ -28,11 +27,11 @@ public class Nodo {
         this.equipo = equipo;
     }
 
-    public Nodo getSiquiente() {
+    public NodoEquipo getSiquiente() {
         return siquiente;
     }
 
-    public void setSiquiente(Nodo siquiente) {
+    public void setSiquiente(NodoEquipo siquiente) {
         this.siquiente = siquiente;
     }
     

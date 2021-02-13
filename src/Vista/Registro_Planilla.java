@@ -13,6 +13,11 @@ import Modelo.Planilla;
 import Modelo.Torneo;
 import java.awt.Color;
 import java.awt.Font;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -81,7 +86,20 @@ public class Registro_Planilla extends javax.swing.JFrame {
         tablaModeloAr();
         //cargatablaAr();
     }
-
+    
+    /*private LocalDate fecha(){
+        String dia = slectitem1.gettext();
+        String mes= slectite2.gettext();
+        String anio = slectitem3.gettext();
+        int mes = Integer.parseInt(dia);
+        int mes = Integer.parseInt(dia);
+        int mes = Integer.parseInt(dia);
+      
+      
+      LocalDate a = LocalDate.of(mes, dia, anio);
+              return  a;
+    }
+*/
     public void tablaModelo() {
         //damos los parametros que se veran reflejados en la tabla
         tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -241,10 +259,10 @@ public class Registro_Planilla extends javax.swing.JFrame {
         RegistrarP = new javax.swing.JButton();
         Direccion = new javax.swing.JLabel();
         lbImagen = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        PanelEquipos = new javax.swing.JScrollPane();
         tablaEquipos = new javax.swing.JTable();
         Atras = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        panelArbitros = new javax.swing.JScrollPane();
         tablaArbitros = new javax.swing.JTable();
         titulo1 = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -363,7 +381,7 @@ public class Registro_Planilla extends javax.swing.JFrame {
         getContentPane().add(Direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, -1, -1));
 
         lbImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/balon.gif"))); // NOI18N
-        getContentPane().add(lbImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 230, 260));
+        getContentPane().add(lbImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 230, 260));
 
         tablaEquipos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -389,9 +407,9 @@ public class Registro_Planilla extends javax.swing.JFrame {
                 tablaEquiposMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tablaEquipos);
+        PanelEquipos.setViewportView(tablaEquipos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 220, 240));
+        getContentPane().add(PanelEquipos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 220, 240));
 
         Atras.setText("Atras");
         Atras.addActionListener(new java.awt.event.ActionListener() {
@@ -432,14 +450,14 @@ public class Registro_Planilla extends javax.swing.JFrame {
                 tablaArbitrosMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tablaArbitros);
+        panelArbitros.setViewportView(tablaArbitros);
         if (tablaArbitros.getColumnModel().getColumnCount() > 0) {
             tablaArbitros.getColumnModel().getColumn(0).setResizable(false);
             tablaArbitros.getColumnModel().getColumn(1).setResizable(false);
             tablaArbitros.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 220, 230));
+        getContentPane().add(panelArbitros, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 220, 230));
 
         titulo1.setText("DON DIEGO ");
         getContentPane().add(titulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 170, 50));
@@ -510,7 +528,11 @@ public class Registro_Planilla extends javax.swing.JFrame {
     private void textoEquipo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoEquipo1MouseClicked
         // permitimos mostrar una tabla donde se permite selecionar el equipo
         //que se presentara en el formato de la planilla
+        
+        
         if (textoEquipo1.getText().equals(" ")) {
+            //escondemos la otra tabla
+            panelArbitros.setVisible(false);
             lbImagen.setVisible(false);
             inicio();
             tablaEquipos.setEnabled(true);
@@ -527,7 +549,10 @@ public class Registro_Planilla extends javax.swing.JFrame {
     }//GEN-LAST:event_tablaEquiposMouseClicked
 
     private void textoEquipo2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoEquipo2MouseClicked
+        
         if (textoEquipo2.getText().equals(" ")) {
+            //escondemos la otra tabla
+            panelArbitros.setVisible(false);
             lbImagen.setVisible(false);
             tablaModelo();
             cargatabla2();
@@ -538,7 +563,10 @@ public class Registro_Planilla extends javax.swing.JFrame {
     }//GEN-LAST:event_textoEquipo2MouseClicked
 
     private void textoArbitroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoArbitroMouseClicked
+        //escondemos la tabla de arbitros
+        
         /*lbImagen.setVisible(false);
+         PanelEquipos.setVisible(false);
          tablaModeloAr();
          cargatablaAr();
          tablaArbitros.setEnabled(true);
@@ -559,17 +587,19 @@ public class Registro_Planilla extends javax.swing.JFrame {
     }//GEN-LAST:event_tablaArbitrosMouseClicked
 
     private void RegistrarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarPActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_RegistrarPActionPerformed
 
     private void textonTorneoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textonTorneoMouseClicked
         if (textonTorneo.getText().equals(" ")) {
+            //escondemos la tabla de arbitros
+            PanelEquipos.setVisible(false);
             lbImagen.setVisible(false);
             tablaModeloAr();
             cargatablaTorneo();
             tablaEquipos.setEnabled(false);
             tablaEquipos.setVisible(false);
-            tablaArbitros.setEnabled(true);
+            tablaArbitros.setEnabled(false);
             tablaArbitros.setVisible(true);
         }
     }//GEN-LAST:event_textonTorneoMouseClicked
@@ -589,6 +619,7 @@ public class Registro_Planilla extends javax.swing.JFrame {
             planila.setNombreArbitro(textoArbitro.getText());
             planila.setLugar(textoLugar.getText());
             planila.setTorneo(tor);
+            //planila.setFecha(fecha());
 
             if (controlP.crearPlanilla(planila)) {
                 JOptionPane.showMessageDialog(rootPane, "Se guardo con exito nuestra planilla");
@@ -692,6 +723,7 @@ public class Registro_Planilla extends javax.swing.JFrame {
     private javax.swing.JLabel F9;
     private javax.swing.JLabel ID;
     private javax.swing.JLabel NombreEquipoB;
+    private javax.swing.JScrollPane PanelEquipos;
     private javax.swing.JButton RegistrarP;
     private javax.swing.JLabel arbitro;
     private javax.swing.JComboBox añoC;
@@ -699,13 +731,12 @@ public class Registro_Planilla extends javax.swing.JFrame {
     private javax.swing.JLabel fecha;
     private javax.swing.JLabel idArbitro;
     private javax.swing.JLabel idTorneo;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbImagen;
     private javax.swing.JLabel lugar;
     private javax.swing.JComboBox mesC;
     private javax.swing.JLabel nombreEquipoA;
+    private javax.swing.JScrollPane panelArbitros;
     private javax.swing.JTable tablaArbitros;
     private javax.swing.JTable tablaEquipos;
     private javax.swing.JTextField textoArbitro;

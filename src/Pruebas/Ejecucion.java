@@ -5,8 +5,6 @@
  */
 package Pruebas;
 
-import Controlador.ControladorDao.EquipoDao;
-import Controlador.ControladorServicios.ServicioEquipo;
 import ControladorJPA.ControladorEquipo;
 import ControladorJPA.ControladorPlanilla;
 import Modelo.Equipo;
@@ -33,6 +31,13 @@ public class Ejecucion {
         plani.setNombreJuga1("BBB");
         
         c.crearPlanilla(plani);*/
+        
+        ControladorEquipo c = new ControladorEquipo();
+        String nombre = "borrusia";
+        
+        Equipo e = c.obtenerEquipoEspecifico(nombre);
+        
+        System.out.println("El nombre es : " + e.getNombreEquipo().toUpperCase());
         
         
     }

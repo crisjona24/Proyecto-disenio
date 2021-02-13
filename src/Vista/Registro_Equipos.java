@@ -5,7 +5,7 @@
  */
 package Vista;
 
-import Controlador.ControladorServicios.ServicioEquipo;
+
 import ControladorJPA.ControladorEquipo;
 import Modelo.Equipo;
 import java.awt.Color;

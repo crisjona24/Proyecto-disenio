@@ -6,6 +6,7 @@
 package Vista;
 
 import ControladorJPA.ControladorEquipo;
+import ControladorJPA.ControladorTorneo;
 import Modelo.Equipo;
 import java.awt.Color;
 import java.awt.Font;
@@ -165,7 +166,7 @@ public class Equipos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Forma1 = new javax.swing.JFrame();
+        Equipo_Principal = new javax.swing.JFrame();
         titulo2 = new javax.swing.JLabel();
         titulo4 = new javax.swing.JLabel();
         EtiquetaRegistro2 = new javax.swing.JLabel();
@@ -232,34 +233,34 @@ public class Equipos extends javax.swing.JFrame {
         F15 = new javax.swing.JLabel();
         ID = new javax.swing.JTextField();
 
-        Forma1.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        Equipo_Principal.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         titulo2.setText("ADMINISTRACION DE TORNEOS");
-        Forma1.getContentPane().add(titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 350, 50));
+        Equipo_Principal.getContentPane().add(titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 350, 50));
 
         titulo4.setText("DON DIEGO ");
-        Forma1.getContentPane().add(titulo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 170, 50));
+        Equipo_Principal.getContentPane().add(titulo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 170, 50));
 
-        EtiquetaRegistro2.setText("Registro de equipos ");
-        Forma1.getContentPane().add(EtiquetaRegistro2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, -1, -1));
+        EtiquetaRegistro2.setText("Informacion de equipo");
+        Equipo_Principal.getContentPane().add(EtiquetaRegistro2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, -1, -1));
 
         nombreEquipo2.setText("Nombre:");
-        Forma1.getContentPane().add(nombreEquipo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, -1, -1));
+        Equipo_Principal.getContentPane().add(nombreEquipo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, -1, -1));
 
         AliasEquipo2.setText("Alias:");
-        Forma1.getContentPane().add(AliasEquipo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, -1, -1));
+        Equipo_Principal.getContentPane().add(AliasEquipo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, -1, -1));
 
         entrenadorEquipo2.setText("Entrenedor");
-        Forma1.getContentPane().add(entrenadorEquipo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, -1, -1));
+        Equipo_Principal.getContentPane().add(entrenadorEquipo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, -1, -1));
 
         ListadoJugadores.setText("Listado de jugadores");
-        Forma1.getContentPane().add(ListadoJugadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 140, -1));
+        Equipo_Principal.getContentPane().add(ListadoJugadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 140, -1));
 
         etiRegistro2.setText("¿Deseo registrar un nuevo jugador?");
-        Forma1.getContentPane().add(etiRegistro2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, -1, -1));
+        Equipo_Principal.getContentPane().add(etiRegistro2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, -1, -1));
 
         etiRegistro3.setText("Click Aqui!");
-        Forma1.getContentPane().add(etiRegistro3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 400, -1, -1));
+        Equipo_Principal.getContentPane().add(etiRegistro3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 400, -1, -1));
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -267,7 +268,7 @@ public class Equipos extends javax.swing.JFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
-        Forma1.getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 230, 80, -1));
+        Equipo_Principal.getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 230, 80, -1));
 
         registroJugador.setText("Registro Jugador");
         registroJugador.addActionListener(new java.awt.event.ActionListener() {
@@ -275,7 +276,7 @@ public class Equipos extends javax.swing.JFrame {
                 registroJugadorActionPerformed(evt);
             }
         });
-        Forma1.getContentPane().add(registroJugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 380, 140, -1));
+        Equipo_Principal.getContentPane().add(registroJugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 380, 140, -1));
 
         Atras2.setText("Atras");
         Atras2.addActionListener(new java.awt.event.ActionListener() {
@@ -283,53 +284,53 @@ public class Equipos extends javax.swing.JFrame {
                 Atras2ActionPerformed(evt);
             }
         });
-        Forma1.getContentPane().add(Atras2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
+        Equipo_Principal.getContentPane().add(Atras2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/balon2.gif"))); // NOI18N
-        Forma1.getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, 220, 160));
+        Equipo_Principal.getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, 220, 160));
 
         Direccion2.setText("Local: Av Primero de mayo, Via la Costa");
-        Forma1.getContentPane().add(Direccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
-        Forma1.getContentPane().add(lbNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, 180, 20));
-        Forma1.getContentPane().add(lbAli, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, 180, 20));
-        Forma1.getContentPane().add(lbEntre, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 290, 180, 20));
+        Equipo_Principal.getContentPane().add(Direccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
+        Equipo_Principal.getContentPane().add(lbNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, 180, 20));
+        Equipo_Principal.getContentPane().add(lbAli, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, 180, 20));
+        Equipo_Principal.getContentPane().add(lbEntre, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 290, 180, 20));
 
         F17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        Forma1.getContentPane().add(F17, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 330, 120, 170));
+        Equipo_Principal.getContentPane().add(F17, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 330, 120, 170));
 
         F18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        Forma1.getContentPane().add(F18, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 120, 330));
+        Equipo_Principal.getContentPane().add(F18, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 120, 330));
 
         F19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        Forma1.getContentPane().add(F19, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 120, 330));
+        Equipo_Principal.getContentPane().add(F19, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 120, 330));
 
         F20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        Forma1.getContentPane().add(F20, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 70, 330));
+        Equipo_Principal.getContentPane().add(F20, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 70, 330));
 
         F21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        Forma1.getContentPane().add(F21, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 330, 200, 170));
+        Equipo_Principal.getContentPane().add(F21, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 330, 200, 170));
 
         F22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        Forma1.getContentPane().add(F22, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 120, 330));
+        Equipo_Principal.getContentPane().add(F22, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 120, 330));
 
         F23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        Forma1.getContentPane().add(F23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 330));
+        Equipo_Principal.getContentPane().add(F23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 330));
 
         F24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        Forma1.getContentPane().add(F24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 120, 170));
+        Equipo_Principal.getContentPane().add(F24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 120, 170));
 
         F25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        Forma1.getContentPane().add(F25, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 120, 170));
+        Equipo_Principal.getContentPane().add(F25, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 120, 170));
 
         F26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        Forma1.getContentPane().add(F26, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, 120, 170));
+        Equipo_Principal.getContentPane().add(F26, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, 120, 170));
 
         F27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        Forma1.getContentPane().add(F27, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, 120, 170));
+        Equipo_Principal.getContentPane().add(F27, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, 120, 170));
 
         F28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FondoPaginas.jpg"))); // NOI18N
-        Forma1.getContentPane().add(F28, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 250, 330));
-        Forma1.getContentPane().add(lbID, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, -1, -1));
+        Equipo_Principal.getContentPane().add(F28, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 250, 330));
+        Equipo_Principal.getContentPane().add(lbID, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, -1, -1));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -543,8 +544,9 @@ public class Equipos extends javax.swing.JFrame {
         //establecemos la forma que se maneja la busqueda 
         if (txtBuscar.getText().length() >= 1) {
             Equipo e = null;
-            Long numero = Long.parseLong(txtBuscar.getText());
-            e = control.obtenerEquipo(numero);
+            //Long numero = Long.parseLong(txtBuscar.getText());
+            String nombre = txtBuscar.getText();
+            e = control.obtenerEquipoEspecifico(nombre);
             if (e != null) {
                 tablaModelo();
                 cargatabla1(e);
@@ -571,6 +573,8 @@ public class Equipos extends javax.swing.JFrame {
                 equipoNuevo.setNombreEquipo(textoNombre.getText());
                 equipoNuevo.setAliasEquipo(textoAlias.getText());
                 equipoNuevo.setEntrnadorEquipo(textoEntre.getText());
+                //Long va = ControladorTorneo.id;
+                
                 if (control.crearEquipo(equipoNuevo)) {
                     JOptionPane.showMessageDialog(rootPane, "Se guardo con exito");
                 } else {
@@ -617,16 +621,19 @@ public class Equipos extends javax.swing.JFrame {
 
         if (textoNombre.getText().length() >= 1) {
             dispose();
-            Forma1.setVisible(true);
-            Forma1.setLocationRelativeTo(null);
-            Forma1.setTitle("Administracion de torneos de una cancha sintetica");
-            Forma1.setBounds(300, 100, 800, 550);
+            Equipo_Principal.setVisible(true);
+            Equipo_Principal.setLocationRelativeTo(null);
+            Equipo_Principal.setTitle("Administracion de torneos de una cancha sintetica");
+            Equipo_Principal.setBounds(300, 100, 800, 550);
             //añadimos fuentes a los etiquetas
             lbNombre.setText(textoNombre.getText());
             lbAli.setText(textoAlias.getText());
             lbEntre.setText(textoEntre.getText());
             lbID.setText(ID.getText());
-
+            //PASAMOS EL OBJETO PADRE PARA PODER USARLO EN LOS HIJOS 
+            Equipo e = control.obtenerEquipo(Long.parseLong(ID.getText()));
+            control.id_Equi = e;
+            
             lbNombre.setFont(new Font("Calibra", Font.PLAIN, 15));
             lbEntre.setFont(new Font("Calibra", Font.PLAIN, 15));
             lbAli.setFont(new Font("Calibra", Font.PLAIN, 15));
@@ -645,7 +652,7 @@ public class Equipos extends javax.swing.JFrame {
     private void Atras2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Atras2ActionPerformed
         // TODO add your handling code here:
         Equipos equipos = new Equipos();
-        Forma1.dispose();
+        Equipo_Principal.dispose();
         equipos.setVisible(true);
     }//GEN-LAST:event_Atras2ActionPerformed
 
@@ -662,7 +669,7 @@ public class Equipos extends javax.swing.JFrame {
             equipo = control.obtenerEquipo(id);
             equipo.setId_equi(id);
             control.eliminarEquipo(id);
-            Forma1.dispose();
+            Equipo_Principal.dispose();
             Equipos equi = new Equipos();
             equi.setVisible(true);
         } else {
@@ -720,6 +727,7 @@ public class Equipos extends javax.swing.JFrame {
     private javax.swing.JLabel Direccion;
     private javax.swing.JLabel Direccion2;
     private javax.swing.JButton Editar;
+    private javax.swing.JFrame Equipo_Principal;
     private javax.swing.JLabel EtiquetaRegistro;
     private javax.swing.JLabel EtiquetaRegistro2;
     private javax.swing.JLabel F1;
@@ -746,7 +754,6 @@ public class Equipos extends javax.swing.JFrame {
     private javax.swing.JLabel F7;
     private javax.swing.JLabel F8;
     private javax.swing.JLabel F9;
-    private javax.swing.JFrame Forma1;
     private javax.swing.JTextField ID;
     private javax.swing.JButton ListadoJugadores;
     private javax.swing.JButton Nuevo;

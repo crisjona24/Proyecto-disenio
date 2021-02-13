@@ -6,6 +6,7 @@
 package ControladorJPA;
 
 import Modelo.Equipo;
+import Modelo.NodoEquipo;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -18,16 +19,20 @@ import javax.swing.JOptionPane;
 public class ControladorEquipo {
 
     EquipoJpaController equipo = new EquipoJpaController();
-    Nodo inicio;
+    NodoEquipo inicio;
 
     public ControladorEquipo() {
         inicio = null;
     }
 
+
     public boolean vacio() {
         return inicio == null;
     }
 
+    /*Variable que atrapa un objeto para pasar la id a la entidad debil*/
+    public static Equipo id_Equi;
+    
     /*metodo para crear un nuevo Equipo*/
     public boolean crearEquipo(Equipo equi) {
         boolean creo = false;
@@ -63,8 +68,10 @@ public class ControladorEquipo {
         }
         return edi;
     }
-    /*metodo para listar un nuevo Equipo*/
-
+    /**
+     * 
+     * @return lista de equipos 
+     */
     public List<Equipo> listarEquipo() {
         List<Equipo> listaequipos = null;
         try {
@@ -75,6 +82,11 @@ public class ControladorEquipo {
         return listaequipos;
     }
 
+    /**
+     * 
+     * @param id
+     * @return Equipo objeto de la clase equipo
+     */
     public Equipo obtenerEquipo(Long id) {
         Equipo equi = null;
         try {
@@ -85,39 +97,41 @@ public class ControladorEquipo {
         return equi;
     }
    
-    
+    /**
+     * 
+     * @param nombre
+     * @return Un objeto Equipo buscado por nombre
+     */
     public Equipo obtenerEquipoEspecifico(String nombre) {
         List<Equipo> equi = null;
-        Equipo e = new Equipo();
+        Equipo e = null;
         equi = listarEquipo();
         try {
-            for (Equipo equi1 : equi) {
-                Nodo nuevo = new Nodo();
+            
+            for (Equipo equi1 : equi) {       
+                NodoEquipo nuevo = new NodoEquipo();
                 nuevo.setEquipo((Equipo)equi1);
                 if (vacio()) {                    
                     inicio = nuevo;
                 }else{
-                    Nodo aux = inicio;
+                    NodoEquipo aux = inicio;
                     while(aux.getSiquiente()!=null){
                         aux = aux.getSiquiente();
                     }
                     aux.setSiquiente(nuevo);
                 }
                 
-            }
-            
-            System.out.println("Si paso todo");
-            
-             Nodo auxi = inicio;
+            }        
+            /*una vez pasada la lista a una lista de nodos, buscamos dentro a traves del nombre*/
+            NodoEquipo auxi = inicio;
             boolean salir = false;
             
             while(auxi!=null && salir == false){
-                if(String.valueOf(auxi.getEquipo().getNombreEquipo()).equals(nombre)){
+                if(String.valueOf(auxi.getEquipo().getNombreEquipo()).equalsIgnoreCase(nombre)){
                     Long id = auxi.getEquipo().getId_equi();
                     e = obtenerEquipo(id);
                     e.setId_equi(id);
                     
-                    System.out.println("Si busca ");
                     salir = true;
                 }
                 auxi = auxi.getSiquiente();
