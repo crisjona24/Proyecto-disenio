@@ -74,89 +74,6 @@ public class Equipos extends javax.swing.JFrame {
         inicio();
     }
 
-    public void inicio() {
-        textoNombre.setEnabled(true);
-        textoAlias.setEnabled(true);
-        textoEntre.setEnabled(true);
-        textoAlias.setText(null);
-        textoEntre.setText(null);
-        textoNombre.setText(null);
-        RegistrarE.setEnabled(true);
-        Editar.setEnabled(false);
-        Nuevo.setEnabled(false);
-        RegistrarE.setText("Registrar");
-        tablaModelo();
-        cargatabla();
-    }
-
-    public void nuevoRegistro() {
-        textoNombre.setEnabled(true);
-        textoAlias.setEnabled(true);
-        textoEntre.setEnabled(true);
-        textoNombre.setText(null);
-        textoAlias.setText(null);
-        textoEntre.setText(null);
-        RegistrarE.setEnabled(true);
-        Editar.setEnabled(false);
-        Nuevo.setEnabled(false);
-        RegistrarE.setText("Registrar");
-    }
-
-    public void editarRegistro() {
-        RegistrarE.setText("Actualizar");
-        Nuevo.setEnabled(false);
-        RegistrarE.setEnabled(true);
-        textoNombre.setEnabled(true);
-        textoAlias.setEnabled(true);
-        textoEntre.setEnabled(true);
-    }
-
-    public void cargarEquipo() {
-        if (this.tablaEquipos.isEnabled()) {
-            int selectedRow = this.tablaEquipos.getSelectedRow();
-            Long id = Long.parseLong(modelo.getValueAt(selectedRow, 0).toString());
-            Equipo equipo = control.obtenerEquipo(id);
-            ID.setText(String.valueOf(equipo.getId_equi()));
-            textoNombre.setText(equipo.getNombreEquipo());
-            textoAlias.setText(equipo.getAliasEquipo());
-            textoEntre.setText(equipo.getEntrnadorEquipo());
-            Editar.setEnabled(true);
-            Nuevo.setEnabled(true);
-        }
-    }
-
-    public void tablaModelo() {
-        //damos los parametros que se veran reflejados en la tabla
-        tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(40);
-        tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(40);
-        tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(80);
-        tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(80);
-        modelo = (DefaultTableModel) tablaEquipos.getModel();
-        modelo.setNumRows(0);
-    }
-
-    public void cargatabla() {
-        //añadimos a traves de una lista los datos a la tabla
-        List<Equipo> lista = control.listarEquipo();
-
-        for (Equipo actlist : lista) {
-
-            String nombre = String.valueOf(actlist.getNombreEquipo());
-            String a = String.valueOf(actlist.getEntrnadorEquipo());
-            String ali = String.valueOf(actlist.getAliasEquipo());
-            modelo.addRow(new Object[]{actlist.getId_equi(), nombre, a, ali,});
-        }
-    }
-
-    public void cargatabla1(Equipo equipo) {
-
-        String nombre = equipo.getNombreEquipo();
-        String a = equipo.getEntrnadorEquipo();
-        String ali = equipo.getAliasEquipo();
-        modelo.addRow(new Object[]{equipo.getId_equi(), nombre, a, ali,});
-
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -569,16 +486,21 @@ public class Equipos extends javax.swing.JFrame {
         //controlamos el ingreso de los datos
         if ((textoNombre.getText().length() >= 1) && (textoAlias.getText().length() >= 1) && (textoEntre.getText().length() >= 1)) {
             if (RegistrarE.getText().equalsIgnoreCase("Registrar")) {
-                equipoNuevo = new Equipo();
-                equipoNuevo.setNombreEquipo(textoNombre.getText());
-                equipoNuevo.setAliasEquipo(textoAlias.getText());
-                equipoNuevo.setEntrnadorEquipo(textoEntre.getText());
+                //validamos que el registro del equipo sea unico
+                if (control.unicoEquipo(textoNombre.getText())) {
+                    equipoNuevo = new Equipo();
+                    equipoNuevo.setNombreEquipo(textoNombre.getText());
+                    equipoNuevo.setAliasEquipo(textoAlias.getText());
+                    equipoNuevo.setEntrenadorEquipo(textoEntre.getText());
                 //Long va = ControladorTorneo.id;
-                
-                if (control.crearEquipo(equipoNuevo)) {
-                    JOptionPane.showMessageDialog(rootPane, "Se guardo con exito");
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Lo sentimos no se puedo guardar");
+
+                    if (control.crearEquipo(equipoNuevo)) {
+                        JOptionPane.showMessageDialog(rootPane, "Se guardo con exito");
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Lo sentimos no se puedo guardar");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Lo sentimos el equipo ya existe","Error",JOptionPane.ERROR_MESSAGE);
                 }
 
             } else {
@@ -589,7 +511,7 @@ public class Equipos extends javax.swing.JFrame {
                 equipoNuevo.setId_equi(id);
                 equipoNuevo.setNombreEquipo(textoNombre.getText());
                 equipoNuevo.setAliasEquipo(textoAlias.getText());
-                equipoNuevo.setEntrnadorEquipo(textoEntre.getText());
+                equipoNuevo.setEntrenadorEquipo(textoEntre.getText());
                 if (control.editarEquipo(equipoNuevo)) {
                     JOptionPane.showMessageDialog(rootPane, "Se edito con exito");
                 } else {
@@ -633,7 +555,7 @@ public class Equipos extends javax.swing.JFrame {
             //PASAMOS EL OBJETO PADRE PARA PODER USARLO EN LOS HIJOS 
             Equipo e = control.obtenerEquipo(Long.parseLong(ID.getText()));
             control.id_Equi = e;
-            
+
             lbNombre.setFont(new Font("Calibra", Font.PLAIN, 15));
             lbEntre.setFont(new Font("Calibra", Font.PLAIN, 15));
             lbAli.setFont(new Font("Calibra", Font.PLAIN, 15));
@@ -679,6 +601,89 @@ public class Equipos extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    public void inicio() {
+        textoNombre.setEnabled(true);
+        textoAlias.setEnabled(true);
+        textoEntre.setEnabled(true);
+        textoAlias.setText(null);
+        textoEntre.setText(null);
+        textoNombre.setText(null);
+        RegistrarE.setEnabled(true);
+        Editar.setEnabled(false);
+        Nuevo.setEnabled(false);
+        RegistrarE.setText("Registrar");
+        tablaModelo();
+        cargatabla();
+    }
+
+    public void nuevoRegistro() {
+        textoNombre.setEnabled(true);
+        textoAlias.setEnabled(true);
+        textoEntre.setEnabled(true);
+        textoNombre.setText(null);
+        textoAlias.setText(null);
+        textoEntre.setText(null);
+        RegistrarE.setEnabled(true);
+        Editar.setEnabled(false);
+        Nuevo.setEnabled(false);
+        RegistrarE.setText("Registrar");
+    }
+
+    public void editarRegistro() {
+        RegistrarE.setText("Actualizar");
+        Nuevo.setEnabled(false);
+        RegistrarE.setEnabled(true);
+        textoNombre.setEnabled(true);
+        textoAlias.setEnabled(true);
+        textoEntre.setEnabled(true);
+    }
+
+    public void cargarEquipo() {
+        if (this.tablaEquipos.isEnabled()) {
+            int selectedRow = this.tablaEquipos.getSelectedRow();
+            Long id = Long.parseLong(modelo.getValueAt(selectedRow, 0).toString());
+            Equipo equipo = control.obtenerEquipo(id);
+            ID.setText(String.valueOf(equipo.getId_equi()));
+            textoNombre.setText(equipo.getNombreEquipo());
+            textoAlias.setText(equipo.getAliasEquipo());
+            textoEntre.setText(equipo.getEntrenadorEquipo());
+            Editar.setEnabled(true);
+            Nuevo.setEnabled(true);
+        }
+    }
+
+    public void tablaModelo() {
+        //damos los parametros que se veran reflejados en la tabla
+        tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(40);
+        tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(40);
+        tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(80);
+        tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(80);
+        modelo = (DefaultTableModel) tablaEquipos.getModel();
+        modelo.setNumRows(0);
+    }
+
+    public void cargatabla() {
+        //añadimos a traves de una lista los datos a la tabla
+        List<Equipo> lista = control.listarEquipo();
+
+        for (Equipo actlist : lista) {
+
+            String nombre = String.valueOf(actlist.getNombreEquipo());
+            String a = String.valueOf(actlist.getEntrenadorEquipo());
+            String ali = String.valueOf(actlist.getAliasEquipo());
+            modelo.addRow(new Object[]{actlist.getId_equi(), nombre, a, ali,});
+        }
+    }
+
+    public void cargatabla1(Equipo equipo) {
+
+        String nombre = equipo.getNombreEquipo();
+        String a = equipo.getEntrenadorEquipo();
+        String ali = equipo.getAliasEquipo();
+        modelo.addRow(new Object[]{equipo.getId_equi(), nombre, a, ali,});
+
+    }
 
     /**
      * @param args the command line arguments

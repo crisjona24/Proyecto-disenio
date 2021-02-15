@@ -134,4 +134,56 @@ public class ControladorPlanilla {
         return p;
     }
 
+      /**
+     * 
+     * @param nombre
+     * @return comprobar que una planilla generada sea unica por los nombres de las equipos enfrentados
+     */
+    public boolean unicaPlanilla(String nombre, String n1) {
+        boolean s = true;
+        List<Planilla> plani = null;
+        Planilla p = null;
+        plani = listarPlanilla();
+        try {
+            
+            for (Planilla equi1 : plani) {       
+                NodoPlanilla nuevo = new NodoPlanilla();
+                nuevo.setPlanilla((Planilla)equi1);
+                if (vacio()) {                    
+                    inicio = nuevo;
+                }else{
+                    NodoPlanilla aux = inicio;
+                    while(aux.getSiquiente()!=null){
+                        aux = aux.getSiquiente();
+                    }
+                    aux.setSiquiente(nuevo);
+                }
+                
+            }        
+            /*una vez pasada la lista a una lista de nodos, buscamos dentro a traves del nombre*/
+            NodoPlanilla auxi = inicio;
+            boolean salir = false;
+            
+            while(auxi!=null && salir == false){
+                if((String.valueOf(auxi.getPlanilla().getNombreEquipo()).equalsIgnoreCase(nombre))
+                        &&(String.valueOf(auxi.getPlanilla().getNombreEquipo1()).equalsIgnoreCase(n1))){                 
+                    s = false;
+                    salir = true;
+                }
+                auxi = auxi.getSiquiente();
+            }
+             while(auxi!=null && salir == false){
+                if((String.valueOf(auxi.getPlanilla().getNombreEquipo()).equalsIgnoreCase(n1))
+                        &&(String.valueOf(auxi.getPlanilla().getNombreEquipo1()).equalsIgnoreCase(nombre))){                 
+                    s = false;
+                    salir = true;
+                }
+                auxi = auxi.getSiquiente();
+            }
+           
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al obteber equipo " + ex);
+        }
+        return s;
+    }
 }

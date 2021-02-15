@@ -41,7 +41,7 @@ public class Equipo implements Serializable {
     @Column(length = 50)
     private String aliasEquipo;
     @Column(length = 50)
-    private String entrnadorEquipo;
+    private String entrenadorEquipo;
     /*Se establece la relacion entre las tablas identificando la tabla fuerte y la 
     debil*/
     @ManyToOne(cascade = CascadeType.REFRESH)
@@ -68,12 +68,12 @@ public class Equipo implements Serializable {
         this.aliasEquipo = aliasEquipo;
     }
 
-    public String getEntrnadorEquipo() {
-        return entrnadorEquipo;
+    public String getEntrenadorEquipo() {
+        return entrenadorEquipo;
     }
 
-    public void setEntrnadorEquipo(String entrnadorEquipo) {
-        this.entrnadorEquipo = entrnadorEquipo;
+    public void setEntrenadorEquipo(String entrenadorEquipo) {
+        this.entrenadorEquipo = entrenadorEquipo;
     }
 
     public Torneo getTorneo() {

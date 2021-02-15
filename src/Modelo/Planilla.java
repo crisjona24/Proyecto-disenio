@@ -58,9 +58,9 @@ public class Planilla implements Serializable {
     private String resultado;
     @Column(length = 50)
     private String resultado1;
-    
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
+    @Column(length = 50)
+    private String ganador;
+
     
     /*Se establece la relacion entre las tablas identificando la tabla fuerte y la 
     debil*/
@@ -132,14 +132,14 @@ public class Planilla implements Serializable {
         this.resultado1 = resultado1;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public String getGanador() {
+        return ganador;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setGanador(String ganador) {
+        this.ganador = ganador;
     }
-
+    
     public Torneo getTorneo() {
         return torneo;
     }

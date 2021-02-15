@@ -165,7 +165,7 @@ public class Registro_Equipos extends javax.swing.JFrame {
             Equipo equipo = new Equipo();
             equipo.setNombreEquipo(textoNombre.getText());
             equipo.setAliasEquipo(textoAlias.getText());
-            equipo.setEntrnadorEquipo(textoEntre.getText());
+            equipo.setEntrenadorEquipo(textoEntre.getText());
 
             ControladorEquipo controlE = new ControladorEquipo();
             controlE.crearEquipo(equipo);

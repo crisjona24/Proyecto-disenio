@@ -35,7 +35,7 @@ public class Torneo implements Serializable {
     @Column(length = 50)
     private String nombreTorneo;
     @Column(length = 50)
-    private String modalidad;
+    private Integer numeroEquipos;
 
     /*Creamos una lista de los objetos que tiene dependencia de la clase*/
     /*se agrega la relacion*/
@@ -71,14 +71,14 @@ public class Torneo implements Serializable {
         this.nombreTorneo = nombreTorneo;
     }
 
-    public String getModalidad() {
-        return modalidad;
+    public Integer getNumeroEquipos() {
+        return numeroEquipos;
     }
 
-    public void setModalidad(String modalidad) {
-        this.modalidad = modalidad;
+    public void setNumeroEquipos(Integer numeroEquipos) {
+        this.numeroEquipos = numeroEquipos;
     }
-
+    
     public Long getId_tor() {
         return id_tor;
     }

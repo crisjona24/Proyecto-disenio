@@ -144,4 +144,47 @@ public class ControladorEquipo {
         return e;
     }
 
+    /**
+     * 
+     * @param nombre
+     * @return boolean false/true para comprobar si un registro de equipo es unico por el nombre 
+     */
+    public boolean unicoEquipo(String nombre){
+        boolean s = true;
+        List<Equipo> equi = null;
+        equi = listarEquipo();
+        try {
+            
+            for (Equipo equi1 : equi) {       
+                NodoEquipo nuevo = new NodoEquipo();
+                nuevo.setEquipo((Equipo)equi1);
+                if (vacio()) {                    
+                    inicio = nuevo;
+                }else{
+                    NodoEquipo aux = inicio;
+                    while(aux.getSiquiente()!=null){
+                        aux = aux.getSiquiente();
+                    }
+                    aux.setSiquiente(nuevo);
+                }
+                
+            }        
+            /*una vez pasada la lista a una lista de nodos, buscamos dentro a traves del nombre*/
+            NodoEquipo auxi = inicio;
+            boolean salir = false;
+            
+            while(auxi!=null && salir == false){
+                if(String.valueOf(auxi.getEquipo().getNombreEquipo()).equalsIgnoreCase(nombre)){                   
+                    salir = true;
+                    s = false;
+                }
+                auxi = auxi.getSiquiente();
+            }
+            
+           
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al obteber equipo " + ex);
+        }
+        return s;
+    }
 }

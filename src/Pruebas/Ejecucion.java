@@ -32,13 +32,18 @@ public class Ejecucion {
         
         c.crearPlanilla(plani);*/
         
-        ControladorEquipo c = new ControladorEquipo();
+        /*ControladorEquipo c = new ControladorEquipo();
         String nombre = "borrusia";
         
         Equipo e = c.obtenerEquipoEspecifico(nombre);
         
         System.out.println("El nombre es : " + e.getNombreEquipo().toUpperCase());
         
+        */
         
+     
     }
+    
+    
+    
 }

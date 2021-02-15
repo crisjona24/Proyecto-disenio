@@ -184,7 +184,7 @@ public class Planillas extends javax.swing.JFrame {
         for (Equipo actlist : lista) {
 
             String nombre = String.valueOf(actlist.getNombreEquipo());
-            String a = String.valueOf(actlist.getEntrnadorEquipo());
+            String a = String.valueOf(actlist.getEntrenadorEquipo());
             String ali = String.valueOf(actlist.getAliasEquipo());
             modelo.addRow(new Object[]{actlist.getId_equi(), nombre, a, ali,});
         }
@@ -210,7 +210,7 @@ public class Planillas extends javax.swing.JFrame {
         for (Equipo actlist : lista) {
             String nombre = String.valueOf(actlist.getNombreEquipo());
             if (!textoequipo1.getText().equalsIgnoreCase(nombre)) {
-                String a = String.valueOf(actlist.getEntrnadorEquipo());
+                String a = String.valueOf(actlist.getEntrenadorEquipo());
                 String ali = String.valueOf(actlist.getAliasEquipo());
                 modelo.addRow(new Object[]{actlist.getId_equi(), nombre, a, ali,});
             }
@@ -234,7 +234,7 @@ public class Planillas extends javax.swing.JFrame {
         for (Equipo actlist : lista) {
             String nombre = String.valueOf(actlist.getNombreEquipo());
             if (textoequipo1.getText().equalsIgnoreCase(nombre) || textoequipo2.getText().equalsIgnoreCase(nombre)) {
-                String a = String.valueOf(actlist.getEntrnadorEquipo());
+                String a = String.valueOf(actlist.getEntrenadorEquipo());
                 modelo4.addRow(new Object[]{actlist.getId_equi(), nombre, a,});
             }
 
@@ -305,14 +305,12 @@ public class Planillas extends javax.swing.JFrame {
         Direccion1 = new javax.swing.JLabel();
         textoArbitro = new javax.swing.JTextField();
         textoLugar = new javax.swing.JTextField();
-        textoFecha = new javax.swing.JTextField();
         ModificarP = new javax.swing.JButton();
         eliminarP1 = new javax.swing.JButton();
         registroResultados = new javax.swing.JButton();
         verResultados = new javax.swing.JButton();
         Atras1 = new javax.swing.JButton();
         btCancelarM = new javax.swing.JButton();
-        fecha = new javax.swing.JLabel();
         lugar = new javax.swing.JLabel();
         arbitro = new javax.swing.JLabel();
         F12 = new javax.swing.JLabel();
@@ -451,8 +449,6 @@ public class Planillas extends javax.swing.JFrame {
         textoArbitro.setBounds(200, 340, 180, 20);
         PlanillaPrincipal.getContentPane().add(textoLugar);
         textoLugar.setBounds(200, 380, 180, 20);
-        PlanillaPrincipal.getContentPane().add(textoFecha);
-        textoFecha.setBounds(200, 420, 180, 20);
 
         ModificarP.setText("Modificar");
         ModificarP.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -483,7 +479,7 @@ public class Planillas extends javax.swing.JFrame {
 
         verResultados.setText("Ver resultados");
         PlanillaPrincipal.getContentPane().add(verResultados);
-        verResultados.setBounds(230, 470, 101, 23);
+        verResultados.setBounds(240, 440, 101, 23);
 
         Atras1.setText("Atras");
         Atras1.addActionListener(new java.awt.event.ActionListener() {
@@ -502,10 +498,6 @@ public class Planillas extends javax.swing.JFrame {
         });
         PlanillaPrincipal.getContentPane().add(btCancelarM);
         btCancelarM.setBounds(30, 380, 90, 20);
-
-        fecha.setText("Fecha :");
-        PlanillaPrincipal.getContentPane().add(fecha);
-        fecha.setBounds(150, 420, 36, 14);
 
         lugar.setText("Lugar :");
         PlanillaPrincipal.getContentPane().add(lugar);
@@ -934,8 +926,7 @@ public class Planillas extends javax.swing.JFrame {
             arbitro.setFont(fuente1);
             lugar.setForeground(Color.black);
             lugar.setFont(fuente1);
-            fecha.setForeground(Color.black);
-            fecha.setFont(fuente1);
+
             
 
             PlanillaPrincipal.setVisible(true);
@@ -946,12 +937,10 @@ public class Planillas extends javax.swing.JFrame {
             textoequipo1.setText(plani.getNombreEquipo());
             textoequipo2.setText(plani.getNombreEquipo1());
             textoLugar.setText(plani.getLugar());
-            textoFecha.setText(String.valueOf(plani.getFecha()));
             textoArbitro.setText(plani.getNombreArbitro());
 
             textoArbitro.setEnabled(false);
             textoLugar.setEnabled(false);
-            textoFecha.setEnabled(false);
             textoequipo1.setEnabled(false);
             textoequipo2.setEnabled(false);
 
@@ -1059,14 +1048,12 @@ public class Planillas extends javax.swing.JFrame {
             nom1 = textoequipo2.getText();
             lug = textoLugar.getText();
             ar = textoArbitro.getText();
-            fe = textoFecha.getText();
 
             btCancelarM.setVisible(true);
             editarRegistro();
         } else if (ModificarP.getText().equalsIgnoreCase("Guardar")) {
             if ((textoequipo1.getText().length() >= 1) && (textoequipo2.getText().length() >= 1)
-                    && (textoLugar.getText().length() >= 1) && (textoArbitro.getText().length() >= 1)
-                    && (textoFecha.getText().length() >= 1)) {
+                    && (textoLugar.getText().length() >= 1) && (textoArbitro.getText().length() >= 1)) {
                 //creamos un objeto de tipo planilla para dat los nuevos datos y modificar
                 planiya = new Planilla();
 
@@ -1092,7 +1079,6 @@ public class Planillas extends javax.swing.JFrame {
                 //estado de las cajas
                 textoArbitro.setEnabled(false);
                 textoLugar.setEnabled(false);
-                textoFecha.setEnabled(false);
                 textoequipo1.setEnabled(false);
                 textoequipo2.setEnabled(false);
             } else {
@@ -1109,11 +1095,9 @@ public class Planillas extends javax.swing.JFrame {
         textoequipo2.setText(nom1);
         textoLugar.setText(lug);
         textoArbitro.setText(ar);
-        textoFecha.setText(fe);
 
         textoArbitro.setEnabled(false);
         textoLugar.setEnabled(false);
-        textoFecha.setEnabled(false);
         textoequipo1.setEnabled(false);
         textoequipo2.setEnabled(false);
     }//GEN-LAST:event_btCancelarMMouseClicked
@@ -1354,7 +1338,6 @@ public class Planillas extends javax.swing.JFrame {
     private javax.swing.JButton eliminarP1;
     private javax.swing.JLabel etiRegistro;
     private javax.swing.JLabel etiRegistro1;
-    private javax.swing.JLabel fecha;
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel fondo1;
     private javax.swing.JButton guardarResultados;
@@ -1388,7 +1371,6 @@ public class Planillas extends javax.swing.JFrame {
     private javax.swing.JTextField textoArbitro;
     private javax.swing.JTextField textoBuscar;
     private javax.swing.JTextField textoBuscar1;
-    private javax.swing.JTextField textoFecha;
     private javax.swing.JTextField textoJugadorR;
     private javax.swing.JTextField textoLugar;
     private javax.swing.JTextField textoR;
