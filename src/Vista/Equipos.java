@@ -28,7 +28,8 @@ public class Equipos extends javax.swing.JFrame {
      */
     DefaultTableModel modelo;
     ControladorEquipo control = new ControladorEquipo();
-
+    ControladorTorneo cT = new ControladorTorneo();
+    
     public Equipos() {
         initComponents();
         setLocationRelativeTo(null);
@@ -262,20 +263,20 @@ public class Equipos extends javax.swing.JFrame {
 
         tablaEquipos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Entrenador", "Alias"
+                "Nombre", "Entrenador", "Alias"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true
+                false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -298,6 +299,11 @@ public class Equipos extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tablaEquipos);
+        if (tablaEquipos.getColumnModel().getColumnCount() > 0) {
+            tablaEquipos.getColumnModel().getColumn(0).setResizable(false);
+            tablaEquipos.getColumnModel().getColumn(1).setResizable(false);
+            tablaEquipos.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 440, 350, 140));
 
@@ -336,6 +342,11 @@ public class Equipos extends javax.swing.JFrame {
         getContentPane().add(Direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, -1, -1));
 
         Atras.setText("Atras");
+        Atras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AtrasMouseClicked(evt);
+            }
+        });
         getContentPane().add(Atras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 570, -1, -1));
 
         buscarEquipo.setText("Buscar");
@@ -439,6 +450,9 @@ public class Equipos extends javax.swing.JFrame {
     private void tablaEquiposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEquiposMouseClicked
         // TODO add your handling code here:
         Nuevo.setEnabled(false);
+        textoNombre.setEnabled(false);
+        textoAlias.setEnabled(false);
+        textoEntre.setEnabled(false);
         cargarEquipo();
     }//GEN-LAST:event_tablaEquiposMouseClicked
 
@@ -486,23 +500,28 @@ public class Equipos extends javax.swing.JFrame {
         //controlamos el ingreso de los datos
         if ((textoNombre.getText().length() >= 1) && (textoAlias.getText().length() >= 1) && (textoEntre.getText().length() >= 1)) {
             if (RegistrarE.getText().equalsIgnoreCase("Registrar")) {
-                //validamos que el registro del equipo sea unico
-                if (control.unicoEquipo(textoNombre.getText())) {
-                    equipoNuevo = new Equipo();
-                    equipoNuevo.setNombreEquipo(textoNombre.getText());
-                    equipoNuevo.setAliasEquipo(textoAlias.getText());
-                    equipoNuevo.setEntrenadorEquipo(textoEntre.getText());
-                //Long va = ControladorTorneo.id;
+                //comprobamos la cantidad de torneos que se van a registrar
+                //para no exceder la cantidad establecida
+                if(control.cantidadEquipos() < cT.numEquipos){
+                    //validamos que el registro del equipo sea unico
+                    if (control.unicoEquipo(textoNombre.getText())) {
+                        equipoNuevo = new Equipo();
+                        equipoNuevo.setNombreEquipo(textoNombre.getText());
+                        equipoNuevo.setAliasEquipo(textoAlias.getText());
+                        equipoNuevo.setEntrenadorEquipo(textoEntre.getText());
+                        equipoNuevo.setTorneo(cT.id_tor);
 
-                    if (control.crearEquipo(equipoNuevo)) {
-                        JOptionPane.showMessageDialog(rootPane, "Se guardo con exito");
+                        if (control.crearEquipo(equipoNuevo)) {
+                            JOptionPane.showMessageDialog(rootPane, "Se guardo con exito");
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Lo sentimos no se puedo guardar");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(rootPane, "Lo sentimos no se puedo guardar");
+                        JOptionPane.showMessageDialog(rootPane, "Lo sentimos el equipo ya existe", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }else{
-                    JOptionPane.showMessageDialog(rootPane, "Lo sentimos el equipo ya existe","Error",JOptionPane.ERROR_MESSAGE);
+                     JOptionPane.showMessageDialog(rootPane, "Lo sentimos se llego al limite de equipos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
             } else {
 
                 equipoNuevo = new Equipo();
@@ -602,6 +621,12 @@ public class Equipos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void AtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AtrasMouseClicked
+        dispose();
+        Torneos v_torneos = new Torneos();
+        v_torneos.setVisible(true);
+    }//GEN-LAST:event_AtrasMouseClicked
+
     public void inicio() {
         textoNombre.setEnabled(true);
         textoAlias.setEnabled(true);
@@ -642,8 +667,8 @@ public class Equipos extends javax.swing.JFrame {
     public void cargarEquipo() {
         if (this.tablaEquipos.isEnabled()) {
             int selectedRow = this.tablaEquipos.getSelectedRow();
-            Long id = Long.parseLong(modelo.getValueAt(selectedRow, 0).toString());
-            Equipo equipo = control.obtenerEquipo(id);
+            String nombre =modelo.getValueAt(selectedRow, 0).toString();
+            Equipo equipo = control.obtenerEquipoEspecifico(nombre);
             ID.setText(String.valueOf(equipo.getId_equi()));
             textoNombre.setText(equipo.getNombreEquipo());
             textoAlias.setText(equipo.getAliasEquipo());
@@ -654,8 +679,7 @@ public class Equipos extends javax.swing.JFrame {
     }
 
     public void tablaModelo() {
-        //damos los parametros que se veran reflejados en la tabla
-        tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(40);
+        //damos los parametros que se veran reflejados en la tabla     
         tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(40);
         tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(80);
         tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(80);
@@ -668,11 +692,16 @@ public class Equipos extends javax.swing.JFrame {
         List<Equipo> lista = control.listarEquipo();
 
         for (Equipo actlist : lista) {
-
-            String nombre = String.valueOf(actlist.getNombreEquipo());
-            String a = String.valueOf(actlist.getEntrenadorEquipo());
-            String ali = String.valueOf(actlist.getAliasEquipo());
-            modelo.addRow(new Object[]{actlist.getId_equi(), nombre, a, ali,});
+            
+            //controlamos que se cargen los equipos pertenecientes al tornoe
+            //seleccionado previamente
+            if (cT.id_tor.getId_tor() == actlist.getTorneo().getId_tor()) {
+                String nombre = String.valueOf(actlist.getNombreEquipo());
+                String a = String.valueOf(actlist.getEntrenadorEquipo());
+                String ali = String.valueOf(actlist.getAliasEquipo());
+                modelo.addRow(new Object[]{nombre, a, ali,});
+            }
+            
         }
     }
 
@@ -681,7 +710,7 @@ public class Equipos extends javax.swing.JFrame {
         String nombre = equipo.getNombreEquipo();
         String a = equipo.getEntrenadorEquipo();
         String ali = equipo.getAliasEquipo();
-        modelo.addRow(new Object[]{equipo.getId_equi(), nombre, a, ali,});
+        modelo.addRow(new Object[]{ nombre, a, ali,});
 
     }
 

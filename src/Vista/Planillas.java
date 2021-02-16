@@ -6,11 +6,12 @@
 package Vista;
 
 import ControladorJPA.ControladorEquipo;
+import ControladorJPA.ControladorJugador;
 import ControladorJPA.ControladorPlanilla;
 import ControladorJPA.ControladorTorneo;
 import Modelo.Equipo;
 import Modelo.Planilla;
-import Modelo.Torneo;
+import Modelo.Jugador;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -42,6 +43,7 @@ public class Planillas extends javax.swing.JFrame {
     DefaultTableModel modelo4;
     ControladorEquipo control = new ControladorEquipo();
     ControladorTorneo control2 = new ControladorTorneo();
+    ControladorJugador control3 = new ControladorJugador();
 
     /*variables de respaldo*/
     String nom = " ";
@@ -82,9 +84,52 @@ public class Planillas extends javax.swing.JFrame {
         cargatablaP();
     }
 
+    // CARGAR JUGADORES
+    public void tablaModeloJ() {
+        //damos los parametros que se veran reflejados en la tabla
+        tablaJugadores.getColumnModel().getColumn(0).setPreferredWidth(80);
+        tablaJugadores.getColumnModel().getColumn(0).setPreferredWidth(80);
+        //  tablaPlanillas.getColumnModel().getColumn(0).setPreferredWidth(80);
+
+        modelo4 = (DefaultTableModel) tablaJugadores.getModel();
+        modelo4.setNumRows(0);
+    }
+
+    public void cargatablaJ() {
+        //añadimos a traves de una lista los datos a la tabla
+        List<Jugador> lista = control3.listarJugador();
+
+        //encontramos al equipo de donde debemos listar los jugadores
+        String nom = textonEquipoR.getText();
+        Equipo equi = control.obtenerEquipoEspecifico(nom);
+        Long idE = equi.getId_equi();
+
+        for (Jugador actlist : lista) {
+            if (idE == actlist.getEquipo().getId_equi()) {
+                String nombre = String.valueOf(actlist.getNombreJugador());
+                String ape = String.valueOf(actlist.getApellidoJugador());
+                // String fecha = String.valueOf(actlist.getFecha());
+                modelo4.addRow(new Object[]{nombre, ape});
+            }
+
+        }
+    }
+
+    public void cargarJugador() {
+        if (this.tablaJugadores.isEnabled()) {
+            int selectedRow = this.tablaJugadores.getSelectedRow();
+            String nombre = modelo4.getValueAt(selectedRow, 0).toString();
+            String ape = modelo4.getValueAt(selectedRow, 1).toString();
+            Jugador juga = control3.obtenerJugadorEspecifico(nombre, ape);
+
+            textoJugadorR.setText(juga.getNombreJugador());
+            textoJugadorR.setEnabled(false);
+        }
+    }
+
+    //CARGAR LAS PLANILLAS EN LAS TABLAS
     public void tablaModeloP() {
         //damos los parametros que se veran reflejados en la tabla
-        tablaPlanillas.getColumnModel().getColumn(0).setPreferredWidth(40);
         tablaPlanillas.getColumnModel().getColumn(0).setPreferredWidth(40);
         tablaPlanillas.getColumnModel().getColumn(0).setPreferredWidth(80);
         tablaPlanillas.getColumnModel().getColumn(0).setPreferredWidth(80);
@@ -99,12 +144,14 @@ public class Planillas extends javax.swing.JFrame {
         List<Planilla> lista = controlP.listarPlanilla();
 
         for (Planilla actlist : lista) {
+            if (control2.id_tor.getId_tor() == actlist.getTorneo().getId_tor()) {
+                String nombre = String.valueOf(actlist.getNombreEquipo());
+                String nombre1 = String.valueOf(actlist.getNombreEquipo1());
+                String lugar = String.valueOf(actlist.getLugar());
+                // String fecha = String.valueOf(actlist.getFecha());
+                modeloVer.addRow(new Object[]{nombre, nombre1, lugar,});
+            }
 
-            String nombre = String.valueOf(actlist.getNombreEquipo());
-            String nombre1 = String.valueOf(actlist.getNombreEquipo1());
-            String lugar = String.valueOf(actlist.getLugar());
-            // String fecha = String.valueOf(actlist.getFecha());
-            modeloVer.addRow(new Object[]{actlist.getId_plani(), nombre, nombre1, lugar,});
         }
     }
 
@@ -113,14 +160,15 @@ public class Planillas extends javax.swing.JFrame {
         String nombre1 = plani.getNombreEquipo1();
         //String fecha = String.valueOf(plani.getFecha());
         String lugar = plani.getLugar();
-        modeloVer.addRow(new Object[]{plani.getId_plani(), nombre, nombre1, lugar,});
+        modeloVer.addRow(new Object[]{nombre, nombre1, lugar,});
     }
 
     public void cargarPlanilla() {
         if (this.tablaPlanillas.isEnabled()) {
             int selectedRow = this.tablaPlanillas.getSelectedRow();
-            Long id = Long.parseLong(modeloVer.getValueAt(selectedRow, 0).toString());
-            Planilla plani = controlP.obtenerPlanilla(id);
+            String nombre = modeloVer.getValueAt(selectedRow, 0).toString();
+            String nombre1 = modeloVer.getValueAt(selectedRow, 1).toString();
+            Planilla plani = controlP.obtenerPlanillaespecifico(nombre, nombre1);
             //obteniendo la id para futuas operaciones
             idPlanilla.setText(String.valueOf(plani.getId_plani()));
 
@@ -153,9 +201,9 @@ public class Planillas extends javax.swing.JFrame {
         //cargatablaAr();
     }
 
+    //TABLAS DE LOS EQUIPOS
     public void tablaModelo() {
         //damos los parametros que se veran reflejados en la tabla
-        tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(40);
         tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(40);
         tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(80);
         tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(80);
@@ -163,6 +211,97 @@ public class Planillas extends javax.swing.JFrame {
         modelo.setNumRows(0);
     }
 
+    public void cargatabla() {
+        //añadimos a traves de una lista los datos a la tabla
+        List<Equipo> lista = control.listarEquipo();
+
+        for (Equipo actlist : lista) {
+            if (control2.id_tor.getId_tor() == actlist.getTorneo().getId_tor()) {
+                String nombre = String.valueOf(actlist.getNombreEquipo());
+                String a = String.valueOf(actlist.getEntrenadorEquipo());
+                String ali = String.valueOf(actlist.getAliasEquipo());
+                modelo.addRow(new Object[]{nombre, a, ali,});
+            }
+
+        }
+    }
+
+    public void cargatabla2() {
+        //añadimos a traves de una lista los datos a la tabla
+        List<Equipo> lista = control.listarEquipo();
+
+        for (Equipo actlist : lista) {
+            String nombre = String.valueOf(actlist.getNombreEquipo());
+            if (!textoequipo1.getText().equalsIgnoreCase(nombre)) {
+                if (control2.id_tor.getId_tor() == actlist.getTorneo().getId_tor()) {
+                    String a = String.valueOf(actlist.getEntrenadorEquipo());
+                    String ali = String.valueOf(actlist.getAliasEquipo());
+                    modelo.addRow(new Object[]{nombre, a, ali,});
+                }
+
+            }
+
+        }
+    }
+
+    public void cargarEquipo() {
+        if (this.tablaEquipos.isEnabled()) {
+            int selectedRow = this.tablaEquipos.getSelectedRow();
+            String nombre = modelo.getValueAt(selectedRow, 0).toString();
+
+            Equipo equipo = control.obtenerEquipoEspecifico(nombre);
+            //ID.setText(String.valueOf(equipo.getId_equi()));
+
+            if (textoequipo1.getText().equals(" ")) {
+                textoequipo1.setText(equipo.getNombreEquipo());
+            } else {
+                textoequipo2.setText(equipo.getNombreEquipo());
+            }
+
+        }
+    }
+    //TABLA DE LA VENTANA RESULTADOS
+
+    public void tablaModeloR() {
+        //damos los parametros que se veran reflejados en la tabla
+        tablaE.getColumnModel().getColumn(0).setPreferredWidth(40);
+        tablaE.getColumnModel().getColumn(0).setPreferredWidth(40);
+        tablaE.getColumnModel().getColumn(0).setPreferredWidth(80);
+        modelo3 = (DefaultTableModel) tablaE.getModel();
+        modelo3.setNumRows(0);
+    }
+
+    public void cargarEquipoR() {
+        if (this.tablaE.isEnabled()) {
+            int selectedRow = this.tablaE.getSelectedRow();
+            String nombre = modelo3.getValueAt(selectedRow, 0).toString();
+
+            Equipo equipo = control.obtenerEquipoEspecifico(nombre);
+            //ID.setText(String.valueOf(equipo.getId_equi()));
+            textonEquipoR.setText(equipo.getNombreEquipo());
+            textonEquipoR.setEnabled(false);
+        }
+    }
+
+    public void cargatablaR() {
+        //añadimos a traves de una lista los datos a la tabla
+        List<Equipo> lista = control.listarEquipo();
+
+        for (Equipo actlist : lista) {
+            String nombre = String.valueOf(actlist.getNombreEquipo());
+            if (textoequipo1.getText().equalsIgnoreCase(nombre) || textoequipo2.getText().equalsIgnoreCase(nombre)) {
+                if (control2.id_tor.getId_tor() == actlist.getTorneo().getId_tor()) {
+                    String a = String.valueOf(actlist.getEntrenadorEquipo());
+                    String ali = String.valueOf(actlist.getAliasEquipo());
+                    modelo3.addRow(new Object[]{nombre, a, ali,});
+                }
+
+            }
+
+        }
+    }
+
+    //TABLAS DE LOS ARBITROS   OJOOOOOOOOOOO FALTA CAMBIAR LOS MODELOS Y OBJETOS
     public void tablaModeloAr() {
         //damos los parametros que se veran reflejados en la tabla
         if (textoArbitro.getText().equals(" ")) {
@@ -172,22 +311,9 @@ public class Planillas extends javax.swing.JFrame {
 
             modelo2 = (DefaultTableModel) tablaArbitros.getModel();
             modelo2.setNumRows(0);
-            //cargatablaAr();
+
         }
 
-    }
-
-    public void cargatabla() {
-        //añadimos a traves de una lista los datos a la tabla
-        List<Equipo> lista = control.listarEquipo();
-
-        for (Equipo actlist : lista) {
-
-            String nombre = String.valueOf(actlist.getNombreEquipo());
-            String a = String.valueOf(actlist.getEntrenadorEquipo());
-            String ali = String.valueOf(actlist.getAliasEquipo());
-            modelo.addRow(new Object[]{actlist.getId_equi(), nombre, a, ali,});
-        }
     }
 
     public void cargatablaAr() {
@@ -201,71 +327,6 @@ public class Planillas extends javax.swing.JFrame {
          String ali = String.valueOf(actlist.getAliasEquipo());
          modelo.addRow(new Object[]{actlist.getId_equi(), nombre, a, ali,});
          }*/
-    }
-
-    public void cargatabla2() {
-        //añadimos a traves de una lista los datos a la tabla
-        List<Equipo> lista = control.listarEquipo();
-
-        for (Equipo actlist : lista) {
-            String nombre = String.valueOf(actlist.getNombreEquipo());
-            if (!textoequipo1.getText().equalsIgnoreCase(nombre)) {
-                String a = String.valueOf(actlist.getEntrenadorEquipo());
-                String ali = String.valueOf(actlist.getAliasEquipo());
-                modelo.addRow(new Object[]{actlist.getId_equi(), nombre, a, ali,});
-            }
-
-        }
-    }
-
-    public void tablaModeloR() {
-        //damos los parametros que se veran reflejados en la tabla
-        tablaE.getColumnModel().getColumn(0).setPreferredWidth(40);
-        tablaE.getColumnModel().getColumn(0).setPreferredWidth(40);
-        tablaE.getColumnModel().getColumn(0).setPreferredWidth(80);
-        modelo4 = (DefaultTableModel) tablaE.getModel();
-        modelo4.setNumRows(0);
-    }
-
-    public void cargatablaR() {
-        //añadimos a traves de una lista los datos a la tabla
-        List<Equipo> lista = control.listarEquipo();
-
-        for (Equipo actlist : lista) {
-            String nombre = String.valueOf(actlist.getNombreEquipo());
-            if (textoequipo1.getText().equalsIgnoreCase(nombre) || textoequipo2.getText().equalsIgnoreCase(nombre)) {
-                String a = String.valueOf(actlist.getEntrenadorEquipo());
-                modelo4.addRow(new Object[]{actlist.getId_equi(), nombre, a,});
-            }
-
-        }
-    }
-
-    public void cargarEquipoR() {
-        if (this.tablaE.isEnabled()) {
-            int selectedRow = this.tablaE.getSelectedRow();
-            Long id = Long.parseLong(modelo4.getValueAt(selectedRow, 0).toString());
-            Equipo equipo = control.obtenerEquipo(id);
-            //ID.setText(String.valueOf(equipo.getId_equi()));
-            textonEquipoR.setText(equipo.getNombreEquipo());
-            textonEquipoR.setEnabled(false);
-        }
-    }
-
-    public void cargarEquipo() {
-        if (this.tablaEquipos.isEnabled()) {
-            int selectedRow = this.tablaEquipos.getSelectedRow();
-            Long id = Long.parseLong(modelo.getValueAt(selectedRow, 0).toString());
-            Equipo equipo = control.obtenerEquipo(id);
-            //ID.setText(String.valueOf(equipo.getId_equi()));
-
-            if (textoequipo1.getText().equals(" ")) {
-                textoequipo1.setText(equipo.getNombreEquipo());
-            } else {
-                textoequipo2.setText(equipo.getNombreEquipo());
-            }
-
-        }
     }
 
     public void cargarArbitro() {
@@ -353,9 +414,11 @@ public class Planillas extends javax.swing.JFrame {
         nJugador = new javax.swing.JLabel();
         textonEquipoR = new javax.swing.JTextField();
         textoJugadorR = new javax.swing.JTextField();
+        fondo1 = new javax.swing.JLabel();
         panelRe = new javax.swing.JScrollPane();
         tablaE = new javax.swing.JTable();
-        fondo1 = new javax.swing.JLabel();
+        panelJugador = new javax.swing.JScrollPane();
+        tablaJugadores = new javax.swing.JTable();
         fondo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPlanillas = new javax.swing.JTable();
@@ -578,20 +641,20 @@ public class Planillas extends javax.swing.JFrame {
 
         tablaEquipos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Entrenador", "Alias"
+                "Nombre", "Entrenador", "Alias"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -612,7 +675,6 @@ public class Planillas extends javax.swing.JFrame {
             tablaEquipos.getColumnModel().getColumn(0).setResizable(false);
             tablaEquipos.getColumnModel().getColumn(1).setResizable(false);
             tablaEquipos.getColumnModel().getColumn(2).setResizable(false);
-            tablaEquipos.getColumnModel().getColumn(3).setResizable(false);
         }
 
         PlanillaPrincipal.getContentPane().add(panelEquipos);
@@ -686,7 +748,7 @@ public class Planillas extends javax.swing.JFrame {
                 guardarResultadosMouseClicked(evt);
             }
         });
-        PlanillaResultados.getContentPane().add(guardarResultados, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 450, 100, -1));
+        PlanillaResultados.getContentPane().add(guardarResultados, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 460, 100, -1));
 
         Direccion2.setText("Local: Av Primero de mayo, Via la Costa");
         PlanillaResultados.getContentPane().add(Direccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, -1, -1));
@@ -710,12 +772,20 @@ public class Planillas extends javax.swing.JFrame {
         });
         PlanillaResultados.getContentPane().add(textonEquipoR, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 380, 140, 20));
 
+        textoJugadorR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textoJugadorRMouseClicked(evt);
+            }
+        });
         textoJugadorR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoJugadorRActionPerformed(evt);
             }
         });
         PlanillaResultados.getContentPane().add(textoJugadorR, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 420, 140, -1));
+
+        fondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/F.jpg"))); // NOI18N
+        PlanillaResultados.getContentPane().add(fondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 340, 290, 190));
 
         tablaE.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -725,7 +795,7 @@ public class Planillas extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Entrenador"
+                "Nombre", "Entrenador", "Alias"
             }
         ) {
             Class[] types = new Class [] {
@@ -757,8 +827,29 @@ public class Planillas extends javax.swing.JFrame {
 
         PlanillaResultados.getContentPane().add(panelRe, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 350, 270, 170));
 
-        fondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/F.jpg"))); // NOI18N
-        PlanillaResultados.getContentPane().add(fondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 340, 290, 190));
+        tablaJugadores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Nombre", "Apellido"
+            }
+        ));
+        tablaJugadores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaJugadoresMouseClicked(evt);
+            }
+        });
+        panelJugador.setViewportView(tablaJugadores);
+        if (tablaJugadores.getColumnModel().getColumnCount() > 0) {
+            tablaJugadores.getColumnModel().getColumn(0).setResizable(false);
+            tablaJugadores.getColumnModel().getColumn(1).setResizable(false);
+        }
+
+        PlanillaResultados.getContentPane().add(panelJugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 350, 280, 180));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/F.jpg"))); // NOI18N
         PlanillaResultados.getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 540));
@@ -768,21 +859,28 @@ public class Planillas extends javax.swing.JFrame {
 
         tablaPlanillas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "Equipo A", "Equipo B", "Lugar"
+                "Equipo A", "Equipo B", "Lugar"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tablaPlanillas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -791,6 +889,11 @@ public class Planillas extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tablaPlanillas);
+        if (tablaPlanillas.getColumnModel().getColumnCount() > 0) {
+            tablaPlanillas.getColumnModel().getColumn(0).setResizable(false);
+            tablaPlanillas.getColumnModel().getColumn(1).setResizable(false);
+            tablaPlanillas.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 370, 220));
 
@@ -926,8 +1029,6 @@ public class Planillas extends javax.swing.JFrame {
             arbitro.setFont(fuente1);
             lugar.setForeground(Color.black);
             lugar.setFont(fuente1);
-
-            
 
             PlanillaPrincipal.setVisible(true);
             PlanillaPrincipal.setLocationRelativeTo(null);
@@ -1180,7 +1281,10 @@ public class Planillas extends javax.swing.JFrame {
     private void textonEquipoRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textonEquipoRMouseClicked
         tablaModeloR();
         cargatablaR();
+        panelJugador.setVisible(false);
+        tablaJugadores.setVisible(false);
         fondo1.setVisible(false);
+
         panelRe.setVisible(true);
         tablaE.setVisible(true);
     }//GEN-LAST:event_textonEquipoRMouseClicked
@@ -1198,38 +1302,41 @@ public class Planillas extends javax.swing.JFrame {
         PlanillaResultados.dispose();
         PlanillaPrincipal.setVisible(true);
     }//GEN-LAST:event_Atras2MouseClicked
-    
-   /*metodo que controla el ingreso de solo numero en el parametro que se pide*/
-    public boolean soloNumeros(String num) {
-        return num.matches("[0-9]*");
-    }
-    
+
+
     private void guardarResultadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guardarResultadosMouseClicked
         // guardamos los datos que le corresponden a la planilla
-        if((textoR.getText().length()>=1 )&& (textoR1.getText().length()>=1 ) && (textooObser.getText().length()>=1 )
-                && (textoJugadorR.getText().length()>=1 )){
-            if(soloNumeros(textoR.getText()) && soloNumeros(textoR1.getText())){
-              Long id = Long.parseLong(idPlanilla.getText());
-              Planilla plani = controlP.obtenerPlanilla(id);
-              plani.setResultado(textoR.getText());
-              plani.setResultado1(textoR1.getText());
-              plani.setDescripcion(textooObser.getText());
-              plani.setNombreJuga(textoJugadorR.getText());
-              
-              //Actualizamos los valores de la planilla
-              if(controlP.editarPlanilla(plani)){
-                  JOptionPane.showMessageDialog(null, "Se edito con exito :D");
-              }else{
-                   JOptionPane.showMessageDialog(null, "Error al editar","Error",JOptionPane.ERROR_MESSAGE);
-              }
-              PlanillaResultados.dispose();
-              Planillas planillas = new Planillas();
-              planillas.setVisible(true);
-            }else{
-                JOptionPane.showMessageDialog(null, "Se deben ingresar solo numero en resultado","Error",JOptionPane.ERROR_MESSAGE);
+        if ((textoR.getText().length() >= 1) && (textoR1.getText().length() >= 1) && (textooObser.getText().length() >= 1)
+                && (textoJugadorR.getText().length() >= 1)) {
+            if (controlP.soloNumeros(textoR.getText()) && controlP.soloNumeros(textoR1.getText())) {
+                Long id = Long.parseLong(idPlanilla.getText());
+                Planilla plani = controlP.obtenerPlanilla(id);
+                plani.setResultado(textoR.getText());
+                plani.setResultado1(textoR1.getText());
+                plani.setDescripcion(textooObser.getText());
+                plani.setJugaPartido(textoJugadorR.getText());
+                //modificamos el ganador
+                if (Integer.parseInt(textoR.getText()) > Integer.parseInt(textoR1.getText())) {
+                    plani.setGanador(nA.getText());
+                } else if (Integer.parseInt(textoR.getText()) < Integer.parseInt(textoR1.getText())) {
+                    plani.setGanador(nB.getText());
+                } else {
+                    plani.setGanador("Empate");
+                }
+                //Actualizamos los valores de la planilla
+                if (controlP.editarPlanilla(plani)) {
+                    JOptionPane.showMessageDialog(null, "Se edito con exito :D");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al editar", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                PlanillaResultados.dispose();
+                Planillas planillas = new Planillas();
+                planillas.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Se deben ingresar solo numero en resultado", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }else{
-            JOptionPane.showMessageDialog(null, "Rellena los cambios para guardar uwu","Error",JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Rellena los cambios para guardar uwu", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_guardarResultadosMouseClicked
 
@@ -1238,12 +1345,34 @@ public class Planillas extends javax.swing.JFrame {
     }//GEN-LAST:event_textoBuscar1ActionPerformed
 
     private void textoBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBuscarMouseClicked
-       JOptionPane.showMessageDialog(null, "Ingrese el nombre del equipo A que se enfrentaron");
+        JOptionPane.showMessageDialog(null, "Ingrese el nombre del equipo A que se enfrentaron");
     }//GEN-LAST:event_textoBuscarMouseClicked
 
     private void textoBuscar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBuscar1MouseClicked
-         JOptionPane.showMessageDialog(null, "Ingrese el nombre del equipo B que se enfrentaron");
+        JOptionPane.showMessageDialog(null, "Ingrese el nombre del equipo B que se enfrentaron");
     }//GEN-LAST:event_textoBuscar1MouseClicked
+
+    private void textoJugadorRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoJugadorRMouseClicked
+        // control de las acciones
+        if (textonEquipoR.getText().length() > 1) {
+            tablaModeloJ();
+            cargatablaJ();
+            fondo1.setVisible(false);
+            panelRe.setVisible(false);
+            tablaE.setVisible(false);
+            panelJugador.setVisible(true);
+            tablaJugadores.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese primero el equipo valida para buscar", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_textoJugadorRMouseClicked
+
+    private void tablaJugadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaJugadoresMouseClicked
+        cargarJugador();
+        fondo1.setVisible(true);
+        panelJugador.setVisible(false);
+        tablaJugadores.setVisible(false);
+    }//GEN-LAST:event_tablaJugadoresMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1359,6 +1488,7 @@ public class Planillas extends javax.swing.JFrame {
     private javax.swing.JLabel nombreEquipoB;
     private javax.swing.JScrollPane panelArbitros;
     private javax.swing.JScrollPane panelEquipos;
+    private javax.swing.JScrollPane panelJugador;
     private javax.swing.JScrollPane panelRe;
     private javax.swing.JButton registroResultados;
     private javax.swing.JLabel resul1;
@@ -1367,6 +1497,7 @@ public class Planillas extends javax.swing.JFrame {
     private javax.swing.JTable tablaArbitros;
     private javax.swing.JTable tablaE;
     private javax.swing.JTable tablaEquipos;
+    private javax.swing.JTable tablaJugadores;
     private javax.swing.JTable tablaPlanillas;
     private javax.swing.JTextField textoArbitro;
     private javax.swing.JTextField textoBuscar;

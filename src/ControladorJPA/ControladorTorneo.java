@@ -21,6 +21,9 @@ public class ControladorTorneo {
     TorneoJpaController torneo = new TorneoJpaController();
     NodoTorneo inicio;
 
+    public static Integer numEquipos;
+
+    
     public ControladorTorneo() {
         inicio = null;
     }

@@ -9,6 +9,7 @@ import Modelo.Equipo;
 import Modelo.NodoEquipo;
 import java.util.List;
 import javax.swing.JOptionPane;
+import ControladorJPA.ControladorTorneo;
 
 /**
  * Clase que contiene un objeto del tipo JPA para llamar a los metodos de
@@ -16,9 +17,10 @@ import javax.swing.JOptionPane;
  *
  * @author Cristobal Rios
  */
-public class ControladorEquipo {
+public class ControladorEquipo extends OperacionesControl{
 
     EquipoJpaController equipo = new EquipoJpaController();
+    ControladorTorneo cT = new ControladorTorneo();
     NodoEquipo inicio;
 
     public ControladorEquipo() {
@@ -32,6 +34,7 @@ public class ControladorEquipo {
 
     /*Variable que atrapa un objeto para pasar la id a la entidad debil*/
     public static Equipo id_Equi;
+    
     
     /*metodo para crear un nuevo Equipo*/
     public boolean crearEquipo(Equipo equi) {
@@ -186,5 +189,29 @@ public class ControladorEquipo {
             JOptionPane.showMessageDialog(null, "Error al obteber equipo " + ex);
         }
         return s;
+    }
+
+    @Override
+    public Integer cantidadEquipos() {
+        int cantidad =0;
+        //sacamos la lista de equipos
+        List<Equipo> listaE = null;
+        try {
+            listaE = listarEquipo();
+            
+            for (Equipo listaE1 : listaE) {
+                if(cT.id_tor.getId_tor() == listaE1.getTorneo().getId_tor()){
+                    cantidad++;
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener equipo " + ex);
+        }
+        return cantidad;
+    }
+
+    @Override
+    public Integer cantidadPlanillas() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

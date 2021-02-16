@@ -84,29 +84,69 @@ public class Registro_Planilla extends javax.swing.JFrame {
         //cargatablaAr();
     }
 
-    /*private LocalDate fecha(){
-     String dia = slectitem1.gettext();
-     String mes= slectite2.gettext();
-     String anio = slectitem3.gettext();
-     int mes = Integer.parseInt(dia);
-     int mes = Integer.parseInt(dia);
-     int mes = Integer.parseInt(dia);
-      
-      
-     LocalDate a = LocalDate.of(mes, dia, anio);
-     return  a;
-     }
-     */
+    
+    //EQUIPOS
     public void tablaModelo() {
         //damos los parametros que se veran reflejados en la tabla
-        tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(40);
         tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(40);
         tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(80);
         tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(80);
         modelo = (DefaultTableModel) tablaEquipos.getModel();
         modelo.setNumRows(0);
     }
+    
+     public void cargatabla() {
+        //añadimos a traves de una lista los datos a la tabla
+        List<Equipo> lista = control.listarEquipo();
 
+        for (Equipo actlist : lista) {
+            if (control2.id_tor.getId_tor() == actlist.getTorneo().getId_tor()){
+                String nombre = String.valueOf(actlist.getNombreEquipo());
+                String a = String.valueOf(actlist.getEntrenadorEquipo());
+                String ali = String.valueOf(actlist.getAliasEquipo());
+                modelo.addRow(new Object[]{ nombre, a, ali,});
+            }
+
+        }
+    }
+    
+    public void cargatabla2() {
+        //añadimos a traves de una lista los datos a la tabla
+        List<Equipo> lista = control.listarEquipo();
+
+        for (Equipo actlist : lista) {
+            String nombre = String.valueOf(actlist.getNombreEquipo());
+            if (!textoEquipo1.getText().equalsIgnoreCase(nombre)) {
+                if (control2.id_tor.getId_tor() == actlist.getTorneo().getId_tor()) {
+                    String a = String.valueOf(actlist.getEntrenadorEquipo());
+                    String ali = String.valueOf(actlist.getAliasEquipo());
+                    modelo.addRow(new Object[]{nombre, a, ali,});
+                }
+            }
+
+        }
+    }
+
+     public void cargarEquipo() {
+        if (this.tablaEquipos.isEnabled()) {
+            int selectedRow = this.tablaEquipos.getSelectedRow();
+            String nombre = modelo.getValueAt(selectedRow, 0).toString();
+            
+            Equipo equipo = control.obtenerEquipoEspecifico(nombre);
+            
+            ID.setText(String.valueOf(equipo.getId_equi()));
+
+            if (textoEquipo1.getText().equals(" ")) {
+                textoEquipo1.setText(equipo.getNombreEquipo());
+            } else {
+                textoEquipo2.setText(equipo.getNombreEquipo());
+            }
+
+        }
+    }
+
+    
+     //ARBITROS Y TORNEO
     public void tablaModeloAr() {
         //damos los parametros que se veran reflejados en la tabla
         if (textoArbitro.getText().equals(" ")) {
@@ -116,46 +156,34 @@ public class Registro_Planilla extends javax.swing.JFrame {
 
             modelo2 = (DefaultTableModel) tablaArbitros.getModel();
             modelo2.setNumRows(0);
-            //cargatablaAr();
         } else if (textonTorneo.getText().equals(" ")) {
-            tablaArbitros.getColumnModel().getColumn(0).setPreferredWidth(40);
+            
             tablaArbitros.getColumnModel().getColumn(0).setPreferredWidth(40);
             tablaArbitros.getColumnModel().getColumn(0).setPreferredWidth(80);
 
             modelo3 = (DefaultTableModel) tablaArbitros.getModel();
             modelo3.setNumRows(0);
-
-            cargatablaTorneo();
         }
 
     }
 
-    public void cargatabla() {
-        //añadimos a traves de una lista los datos a la tabla
-        List<Equipo> lista = control.listarEquipo();
-
-        for (Equipo actlist : lista) {
-
-            String nombre = String.valueOf(actlist.getNombreEquipo());
-            String a = String.valueOf(actlist.getEntrenadorEquipo());
-            String ali = String.valueOf(actlist.getAliasEquipo());
-            modelo.addRow(new Object[]{actlist.getId_equi(), nombre, a, ali,});
-        }
-    }
+   
 
     public void cargatablaTorneo() {
         //añadimos a traves de una lista los datos a la tabla
         List<Torneo> lista = control2.listarTorneo();
 
         for (Torneo actlist : lista) {
+            if (control2.id_tor.getId_tor() == actlist.getId_tor()) {
+                String nombre = String.valueOf(actlist.getNombreTorneo());
+                String a = String.valueOf(actlist.getNumeroEquipos());
 
-            String nombre = String.valueOf(actlist.getNombreTorneo());
-            String a = String.valueOf(actlist.getNumeroEquipos());
+                modelo.addRow(new Object[]{actlist.getId_tor(), nombre, a,});
+            }
 
-            modelo.addRow(new Object[]{actlist.getId_tor(), nombre, a,});
         }
     }
-
+//cambiar la tabla el modelo
     public void cargatablaAr() {
         //añadimos a traves de una lista los datos a la tabla
         /*List<Arbitro> lista = control.listarEquipo();
@@ -169,37 +197,8 @@ public class Registro_Planilla extends javax.swing.JFrame {
          }*/
     }
 
-    public void cargatabla2() {
-        //añadimos a traves de una lista los datos a la tabla
-        List<Equipo> lista = control.listarEquipo();
-
-        for (Equipo actlist : lista) {
-            String nombre = String.valueOf(actlist.getNombreEquipo());
-            if (!textoEquipo1.getText().equalsIgnoreCase(nombre)) {
-                String a = String.valueOf(actlist.getEntrenadorEquipo());
-                String ali = String.valueOf(actlist.getAliasEquipo());
-                modelo.addRow(new Object[]{actlist.getId_equi(), nombre, a, ali,});
-            }
-
-        }
-    }
-
-    public void cargarEquipo() {
-        if (this.tablaEquipos.isEnabled()) {
-            int selectedRow = this.tablaEquipos.getSelectedRow();
-            Long id = Long.parseLong(modelo.getValueAt(selectedRow, 0).toString());
-            Equipo equipo = control.obtenerEquipo(id);
-            ID.setText(String.valueOf(equipo.getId_equi()));
-
-            if (textoEquipo1.getText().equals(" ")) {
-                textoEquipo1.setText(equipo.getNombreEquipo());
-            } else {
-                textoEquipo2.setText(equipo.getNombreEquipo());
-            }
-
-        }
-    }
-
+    
+   
     public void cargarArbitro() {
 
         //AQUI DEBEMOS CAMBIAR EL OBJETO
@@ -219,8 +218,9 @@ public class Registro_Planilla extends javax.swing.JFrame {
         //AQUI DEBEMOS CAMBIAR EL OBJETO
         if (this.tablaArbitros.isEnabled()) {
             int selectedRow = this.tablaArbitros.getSelectedRow();
-            Long id = Long.parseLong(modelo3.getValueAt(selectedRow, 0).toString());
-            Torneo torne = control2.obtenerTorneo(id);
+            String nombre = modelo3.getValueAt(selectedRow, 0).toString();
+            Torneo torne = control2.obtenerTorneoNombre(nombre);
+            //guardamos la ID
             idTorneo.setText(String.valueOf(torne.getId_tor()));
 
             textonTorneo.setText(torne.getNombreTorneo());
@@ -340,31 +340,38 @@ public class Registro_Planilla extends javax.swing.JFrame {
                 RegistrarPActionPerformed(evt);
             }
         });
-        getContentPane().add(RegistrarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 460, -1, -1));
+        getContentPane().add(RegistrarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 440, -1, -1));
 
         Direccion.setText("Local: Av Primero de mayo, Via la Costa");
         getContentPane().add(Direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, -1, -1));
 
         lbImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/balon.gif"))); // NOI18N
-        getContentPane().add(lbImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 230, 260));
+        getContentPane().add(lbImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 230, 260));
 
         tablaEquipos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "Nombre ", "Entrenador", "Alias"
+                "Nombre ", "Entrenador", "Alias"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tablaEquipos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -373,8 +380,13 @@ public class Registro_Planilla extends javax.swing.JFrame {
             }
         });
         PanelEquipos.setViewportView(tablaEquipos);
+        if (tablaEquipos.getColumnModel().getColumnCount() > 0) {
+            tablaEquipos.getColumnModel().getColumn(0).setResizable(false);
+            tablaEquipos.getColumnModel().getColumn(1).setResizable(false);
+            tablaEquipos.getColumnModel().getColumn(2).setResizable(false);
+        }
 
-        getContentPane().add(PanelEquipos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 220, 240));
+        getContentPane().add(PanelEquipos, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 220, 240));
 
         Atras.setText("Atras");
         Atras.addActionListener(new java.awt.event.ActionListener() {
@@ -422,7 +434,7 @@ public class Registro_Planilla extends javax.swing.JFrame {
             tablaArbitros.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        getContentPane().add(panelArbitros, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 220, 230));
+        getContentPane().add(panelArbitros, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 220, 230));
 
         titulo1.setText("DON DIEGO ");
         getContentPane().add(titulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 170, 50));
@@ -560,30 +572,36 @@ public class Registro_Planilla extends javax.swing.JFrame {
         Planilla planila = null;
         if ((textoEquipo1.getText().length() >= 1) && (textoEquipo2.getText().length() >= 1)
                 && (textoArbitro.getText().length() >= 1) && (textonTorneo.getText().length() >= 1) && (textoLugar.getText().length() >= 1)) {
-            //comprobamos que la planilla sea unica
-            if (controlP.unicaPlanilla(textoEquipo1.getText(), textoEquipo2.getText())) {
-                planila = new Planilla();
-                /*obtenemos la id del torneo al que pertenece*/
-                Long idT = Long.parseLong(idTorneo.getText());
-                Torneo tor = new Torneo();
-                tor = control2.obtenerTorneo(idT);
+            
+            //controlamos el numero de planillas que se deben generar
+            int c = (controlP.factorial(control2.numEquipos))/(controlP.factorial((control2.numEquipos-2))*controlP.factorial(2));
+            if(controlP.cantidadPlanillas() < c) {
+                //comprobamos que la planilla sea unica
+                if (controlP.unicaPlanilla(textoEquipo1.getText(), textoEquipo2.getText())) {
+                    planila = new Planilla();
+                    /*obtenemos la id del torneo al que pertenece*/
+                    Long idT = Long.parseLong(idTorneo.getText());
+                    Torneo tor = new Torneo();
+                    tor = control2.obtenerTorneo(idT);
 
-                planila.setNombreEquipo(textoEquipo1.getText());
-                planila.setNombreEquipo1(textoEquipo2.getText());
-                planila.setNombreArbitro(textoArbitro.getText());
-                planila.setLugar(textoLugar.getText());
-                planila.setTorneo(tor);
-                //planila.setFecha(fecha());
+                    planila.setNombreEquipo(textoEquipo1.getText());
+                    planila.setNombreEquipo1(textoEquipo2.getText());
+                    planila.setNombreArbitro(textoArbitro.getText());
+                    planila.setLugar(textoLugar.getText());
+                    planila.setTorneo(control2.id_tor);
+                    //planila.setFecha(fecha());
 
-                if (controlP.crearPlanilla(planila)) {
-                    JOptionPane.showMessageDialog(rootPane, "Se guardo con exito nuestra planilla");
+                    if (controlP.crearPlanilla(planila)) {
+                        JOptionPane.showMessageDialog(rootPane, "Se guardo con exito nuestra planilla");
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Lo sentimos no se puedo guardar");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "Lo sentimos no se puedo guardar");
+                    JOptionPane.showMessageDialog(rootPane, "Lo sentimos dicho encuentro ya se registro", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }else{
-                 JOptionPane.showMessageDialog(rootPane, "Lo sentimos dicho encuentro ya se registro","Error",JOptionPane.ERROR_MESSAGE);
+                 JOptionPane.showMessageDialog(null, "No podemos registrar mas planillas", null, JOptionPane.ERROR_MESSAGE);
             }
-
         } else {
             JOptionPane.showMessageDialog(null, "Rellene los campos para poder registrar", null, JOptionPane.ERROR_MESSAGE);
         }

@@ -18,32 +18,30 @@ import java.util.List;
  * @author PC
  */
 public class Ejecucion {
+
     public static void main(String[] args) {
-    
-        /*ControladorPlanilla c = new ControladorPlanilla();
+
+        /* ControladorPlanilla c = new ControladorPlanilla();
         
-        Planilla plani = new Planilla();
-        plani.setNombreEquipo("aaa");
-        plani.setNombreEquipo1("Planilla 2");
+         Planilla plani = new Planilla();
+         plani.setNombreEquipo("FC Barcelona");
+         plani.setNombreEquipo1("Real madrid");     
+         plani.setLugar("Loja");
+         plani.setNombreArbitro("Maria");
         
-        plani.setLugar("Llja");
-        plani.setNombreJuga("AAAAAA");
-        plani.setNombreJuga1("BBB");
-        
-        c.crearPlanilla(plani);*/
-        
-        /*ControladorEquipo c = new ControladorEquipo();
-        String nombre = "borrusia";
-        
-        Equipo e = c.obtenerEquipoEspecifico(nombre);
-        
-        System.out.println("El nombre es : " + e.getNombreEquipo().toUpperCase());
-        
-        */
-        
-     
+         c.crearPlanilla(plani);
+         System.out.println("Creo planilla");*/
+        int numero = 6;
+        int c = (factorial(numero))/(factorial((numero-2))*factorial(2));
+        System.out.println("El factorial es : " + c);
     }
-    
-    
-    
+
+    public static Integer factorial(int numero) {
+        if (numero == 0) {
+            return 1;
+        } else {
+            return numero * factorial(numero - 1);
+        }
+    }
+
 }

@@ -53,7 +53,7 @@ public class Planilla implements Serializable {
     @Column(length = 250)
     private String descripcion;
     @Column(length = 50)
-    private String nombreJuga;
+    private String jugaPartido;
     @Column(length = 50)
     private String resultado;
     @Column(length = 50)
@@ -108,12 +108,12 @@ public class Planilla implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public String getNombreJuga() {
-        return nombreJuga;
+    public String getJugaPartido() {
+        return jugaPartido;
     }
 
-    public void setNombreJuga(String nombreJuga) {
-        this.nombreJuga = nombreJuga;
+    public void setJugaPartido(String jugaPartido) {
+        this.jugaPartido = jugaPartido;
     }
 
     public String getResultado() {

@@ -10,6 +10,7 @@ import Modelo.NodoPlanilla;
 import Modelo.Planilla;
 import java.util.List;
 import javax.swing.JOptionPane;
+import ControladorJPA.ControladorTorneo;
 
 /**
  * Clase que contiene un objeto del tipo JPA para llamar a los metodos de
@@ -17,8 +18,9 @@ import javax.swing.JOptionPane;
  *
  * @author Cristobal Rios
  */
-public class ControladorPlanilla {
+public class ControladorPlanilla extends OperacionesControl{
     PlanillaJpaController planilla = new PlanillaJpaController();
+    ControladorTorneo cT = new ControladorTorneo();
     NodoPlanilla inicio;
 
     public ControladorPlanilla() {
@@ -185,5 +187,47 @@ public class ControladorPlanilla {
             JOptionPane.showMessageDialog(null, "Error al obteber equipo " + ex);
         }
         return s;
+    }
+
+    @Override
+    public Integer cantidadEquipos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Integer cantidadPlanillas() {
+       int cantidad =0;
+        //sacamos la lista de equipos
+        List<Planilla> listaP = null;
+        try {
+            listaP = listarPlanilla();
+            
+            for (Planilla listaP1 : listaP) {
+                if(cT.id_tor.getId_tor() == listaP1.getTorneo().getId_tor()){
+                    cantidad++;
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener equipo " + ex);
+        }
+        return cantidad;
+    }
+    
+    /**
+     * 
+     * @param numero
+     * @return El factorial de un numero
+     */
+    public Integer factorial(int numero) {
+        if (numero == 0) {
+            return 1;
+        } else {
+            return numero * factorial(numero - 1);
+        }
+    }
+    
+    /*metodo que controla el ingreso de solo numero en el parametro que se pide*/
+    public boolean soloNumeros(String num) {
+        return num.matches("[0-9]*");
     }
 }
