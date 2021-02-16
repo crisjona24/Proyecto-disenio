@@ -10,6 +10,7 @@ import ControladorJPA.ControladorJugador;
 import ControladorJPA.ControladorPlanilla;
 import ControladorJPA.ControladorTorneo;
 import Modelo.Equipo;
+import Vista.Planilla_Resultados;
 import Modelo.Planilla;
 import Modelo.Jugador;
 import java.awt.Color;
@@ -541,6 +542,11 @@ public class Planillas extends javax.swing.JFrame {
         registroResultados.setBounds(350, 570, 129, 23);
 
         verResultados.setText("Ver resultados");
+        verResultados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                verResultadosMouseClicked(evt);
+            }
+        });
         PlanillaPrincipal.getContentPane().add(verResultados);
         verResultados.setBounds(240, 440, 101, 23);
 
@@ -1010,6 +1016,7 @@ public class Planillas extends javax.swing.JFrame {
             plani.setId_plani(id);
             //le damos a las etiquetas de la nueva ventana los datos 
 
+            controlP.id_Planilla = plani;
             dispose();
 
             //le damos fuente a las etiquetas
@@ -1256,12 +1263,15 @@ public class Planillas extends javax.swing.JFrame {
         // Eliminar planilla
         // cargamos los datos para la eliminacion
         Planilla plani = null;
-        Long id = Long.parseLong(idPlanilla.getText());
-        plani = controlP.obtenerPlanilla(id);
-        plani.setId_plani(id);
+
         int op = JOptionPane.showConfirmDialog(rootPane, "¿Deseoa eliminar la planilla?", "Eliminacion", 0);
         //se cambia las opciones de los botones
         if (op == 0) {
+            Long id = Long.parseLong(idPlanilla.getText());
+            plani = controlP.obtenerPlanilla(id);
+            plani.setTorneo(null);
+            controlP.editarPlanilla(plani);
+            
             JOptionPane.showMessageDialog(rootPane, "Se ha eliminado con exito");
 
             controlP.eliminarPlanilla(id);
@@ -1373,6 +1383,13 @@ public class Planillas extends javax.swing.JFrame {
         panelJugador.setVisible(false);
         tablaJugadores.setVisible(false);
     }//GEN-LAST:event_tablaJugadoresMouseClicked
+
+    private void verResultadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verResultadosMouseClicked
+        // dirigimos a la ventana que muestra los datos
+        dispose();
+        Planilla_Resultados v_resultado = new Planilla_Resultados();
+        v_resultado.setVisible(true);
+    }//GEN-LAST:event_verResultadosMouseClicked
 
     /**
      * @param args the command line arguments

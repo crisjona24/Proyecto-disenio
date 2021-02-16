@@ -64,7 +64,7 @@ public class Planilla implements Serializable {
     
     /*Se establece la relacion entre las tablas identificando la tabla fuerte y la 
     debil*/
-    @ManyToOne(cascade = CascadeType.REFRESH)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(referencedColumnName = "id_tor" , name = "id_Torneo")
     private Torneo torneo;
 

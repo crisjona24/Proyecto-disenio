@@ -45,7 +45,7 @@ public class Jugador implements Serializable {
     private String posicion;
 
     /*dependencia de la tabla equipo*/
-    @ManyToOne(cascade = CascadeType.REFRESH)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(referencedColumnName = "id_equi", name = "id_Equipo")
     private Equipo equipo;
 

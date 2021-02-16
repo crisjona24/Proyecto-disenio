@@ -134,7 +134,7 @@ public class Torneos extends javax.swing.JFrame {
             tablaTorneo.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 310, 150));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 310, 150));
 
         btnVer.setText("Ver");
         btnVer.addMouseListener(new java.awt.event.MouseAdapter() {

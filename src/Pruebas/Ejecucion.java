@@ -31,9 +31,17 @@ public class Ejecucion {
         
          c.crearPlanilla(plani);
          System.out.println("Creo planilla");*/
-        int numero = 6;
-        int c = (factorial(numero))/(factorial((numero-2))*factorial(2));
-        System.out.println("El factorial es : " + c);
+        
+        ControladorEquipo c = new ControladorEquipo();
+        Equipo equipo = c.obtenerEquipoEspecifico("lala");
+        equipo.setTorneo(null);
+        c.editarEquipo(equipo);
+        System.out.println("Se obtuvo : " + equipo.getNombreEquipo());
+        String i = "4";
+        Long id = Long.parseLong(i);
+        System.out.println("El id es " + String.valueOf(id));
+        c.eliminarEquipo(id);
+        //System.out.println("se elimino");
     }
 
     public static Integer factorial(int numero) {

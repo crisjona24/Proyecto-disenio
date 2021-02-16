@@ -29,7 +29,7 @@ public class Equipos extends javax.swing.JFrame {
     DefaultTableModel modelo;
     ControladorEquipo control = new ControladorEquipo();
     ControladorTorneo cT = new ControladorTorneo();
-    
+
     public Equipos() {
         initComponents();
         setLocationRelativeTo(null);
@@ -502,7 +502,7 @@ public class Equipos extends javax.swing.JFrame {
             if (RegistrarE.getText().equalsIgnoreCase("Registrar")) {
                 //comprobamos la cantidad de torneos que se van a registrar
                 //para no exceder la cantidad establecida
-                if(control.cantidadEquipos() < cT.numEquipos){
+                if (control.cantidadEquipos() < cT.numEquipos) {
                     //validamos que el registro del equipo sea unico
                     if (control.unicoEquipo(textoNombre.getText())) {
                         equipoNuevo = new Equipo();
@@ -519,8 +519,8 @@ public class Equipos extends javax.swing.JFrame {
                     } else {
                         JOptionPane.showMessageDialog(rootPane, "Lo sentimos el equipo ya existe", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                }else{
-                     JOptionPane.showMessageDialog(rootPane, "Lo sentimos se llego al limite de equipos", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Lo sentimos se llego al limite de equipos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
 
@@ -599,17 +599,19 @@ public class Equipos extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // cargamos los datos para la eliminacion
-        Equipo equipo = null;
-        Long id = Long.parseLong(lbID.getText());
-        equipo = control.obtenerEquipo(id);
-        equipo.setId_equi(id);
+        Equipo equipo = new Equipo();
+        //Long id = Long.parseLong(lbID.getText());
+        //equipo = control.obtenerEquipo(id);
+        //equipo.setId_equi(id);
+        Long idE = control.id_Equi.getId_equi();
         int op = JOptionPane.showConfirmDialog(rootPane, "¿Deseoa eliminar el equipo?", "Eliminacion", 0);
         //se cambia las opciones de los botones
-        if (op == 0) {
+        if (op == 0) {        
+            equipo = control.obtenerEquipo(idE);
+            equipo.setTorneo(null);
+            control.editarEquipo(equipo);
             JOptionPane.showMessageDialog(rootPane, "Se ha eliminado con exito");
-            equipo = control.obtenerEquipo(id);
-            equipo.setId_equi(id);
-            control.eliminarEquipo(id);
+            control.eliminarEquipo(idE);
             Equipo_Principal.dispose();
             Equipos equi = new Equipos();
             equi.setVisible(true);
@@ -667,7 +669,7 @@ public class Equipos extends javax.swing.JFrame {
     public void cargarEquipo() {
         if (this.tablaEquipos.isEnabled()) {
             int selectedRow = this.tablaEquipos.getSelectedRow();
-            String nombre =modelo.getValueAt(selectedRow, 0).toString();
+            String nombre = modelo.getValueAt(selectedRow, 0).toString();
             Equipo equipo = control.obtenerEquipoEspecifico(nombre);
             ID.setText(String.valueOf(equipo.getId_equi()));
             textoNombre.setText(equipo.getNombreEquipo());
@@ -692,7 +694,7 @@ public class Equipos extends javax.swing.JFrame {
         List<Equipo> lista = control.listarEquipo();
 
         for (Equipo actlist : lista) {
-            
+
             //controlamos que se cargen los equipos pertenecientes al tornoe
             //seleccionado previamente
             if (cT.id_tor.getId_tor() == actlist.getTorneo().getId_tor()) {
@@ -701,7 +703,7 @@ public class Equipos extends javax.swing.JFrame {
                 String ali = String.valueOf(actlist.getAliasEquipo());
                 modelo.addRow(new Object[]{nombre, a, ali,});
             }
-            
+
         }
     }
 
@@ -710,7 +712,7 @@ public class Equipos extends javax.swing.JFrame {
         String nombre = equipo.getNombreEquipo();
         String a = equipo.getEntrenadorEquipo();
         String ali = equipo.getAliasEquipo();
-        modelo.addRow(new Object[]{ nombre, a, ali,});
+        modelo.addRow(new Object[]{nombre, a, ali,});
 
     }
 

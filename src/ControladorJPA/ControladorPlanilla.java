@@ -23,6 +23,9 @@ public class ControladorPlanilla extends OperacionesControl{
     ControladorTorneo cT = new ControladorTorneo();
     NodoPlanilla inicio;
 
+    /*Variable que atrapa un objeto para pasar la id a la entidad debil*/
+    public static Planilla id_Planilla;
+    
     public ControladorPlanilla() {
         inicio = null;
     }
