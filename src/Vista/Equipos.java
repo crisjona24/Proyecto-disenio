@@ -72,6 +72,8 @@ public class Equipos extends javax.swing.JFrame {
         entrenadorEquipo2.setForeground(Color.black);
         entrenadorEquipo2.setFont(fuente1);
 
+        setResizable(false);
+        
         inicio();
     }
 
@@ -566,6 +568,7 @@ public class Equipos extends javax.swing.JFrame {
             Equipo_Principal.setLocationRelativeTo(null);
             Equipo_Principal.setTitle("Administracion de torneos de una cancha sintetica");
             Equipo_Principal.setBounds(300, 100, 800, 550);
+            Equipo_Principal.setResizable(false);
             //añadimos fuentes a los etiquetas
             lbNombre.setText(textoNombre.getText());
             lbAli.setText(textoAlias.getText());
@@ -580,7 +583,7 @@ public class Equipos extends javax.swing.JFrame {
             lbAli.setFont(new Font("Calibra", Font.PLAIN, 15));
 
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Aun no seleccion nada para ver", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Aun no ha seleccionado nada para ver", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_VerActionPerformed

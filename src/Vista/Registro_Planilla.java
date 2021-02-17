@@ -42,6 +42,7 @@ public class Registro_Planilla extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Administracion de torneos de una cancha sintetica");
+        setResizable(false);
         /*administramos el color de la letra y el tipo de fuente*/
         Font fuente = new Font("Agency FB", Font.PLAIN, 40);
         Font fuente1 = new Font("Agency FB", Font.PLAIN, 20);

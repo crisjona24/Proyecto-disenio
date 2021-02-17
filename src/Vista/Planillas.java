@@ -57,6 +57,7 @@ public class Planillas extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Administracion de torneos de una cancha sintetica");
+        setResizable(false);
         /*administramos el color de la letra y el tipo de fuente*/
         Font fuente = new Font("Agency FB", Font.PLAIN, 40);
         Font fuente1 = new Font("Agency FB", Font.PLAIN, 20);
@@ -1041,7 +1042,8 @@ public class Planillas extends javax.swing.JFrame {
             PlanillaPrincipal.setLocationRelativeTo(null);
             PlanillaPrincipal.setTitle("Administracion de torneos de una cancha sintetica");
             PlanillaPrincipal.setBounds(350, 50, 690, 642);
-
+            PlanillaPrincipal.setResizable(false);
+            
             textoequipo1.setText(plani.getNombreEquipo());
             textoequipo2.setText(plani.getNombreEquipo1());
             textoLugar.setText(plani.getLugar());
@@ -1115,7 +1117,7 @@ public class Planillas extends javax.swing.JFrame {
         PlanillaResultados.setLocationRelativeTo(null);
         PlanillaResultados.setTitle("Administracion de torneos de una cancha sintetica");
         PlanillaResultados.setBounds(350, 50, 649, 532);
-
+        PlanillaResultados.setResizable(false);
     }//GEN-LAST:event_registroResultadosActionPerformed
 
     private void tablaPlanillasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPlanillasMouseClicked

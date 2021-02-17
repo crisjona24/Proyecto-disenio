@@ -25,7 +25,7 @@ public class Torneos extends javax.swing.JFrame {
      */
     public Torneos() {
         initComponents();
-        
+        setResizable(false);
         setLocationRelativeTo(null);
         setTitle("Administracion de torneos de una cancha sintetica");
         inicio();

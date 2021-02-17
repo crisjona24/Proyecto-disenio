@@ -22,6 +22,8 @@ public class Planilla_Resultados extends javax.swing.JFrame {
     ControladorPlanilla control = new ControladorPlanilla();
     public Planilla_Resultados() {
         initComponents();
+        setLocationRelativeTo(null);
+        setTitle("Administracion de torneos de una cancha sintetica");
         //modificamos la fuente de la etiquetas
         Font fuente = new Font("Agency FB", Font.PLAIN, 40);
         Font fuente1 = new Font("Agency FB", Font.PLAIN, 20);
@@ -55,7 +57,7 @@ public class Planilla_Resultados extends javax.swing.JFrame {
         jugadorPartido.setText(plani.getJugaPartido());
         lbObervaciones.setText(plani.getDescripcion());
         
-        
+        setResizable(false);
     }
 
    
